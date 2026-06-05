@@ -122,12 +122,12 @@ Acceptance Criteria:
 7. Font Awesome library for icons
 8. Bootstrap5 icon library for icons
 8. Google Fonts to import additional fonts
-9. Artificial Intelligence Technologies (Gemini) was used to create The Marina Pizzeria Logo as well as the favicons of various sizes.
+9. Artificial Intelligence Technologies (Gemini) was used to create Brushed Up Things Logo, the favicons of various sizes as well as art pieces for all the sculptures and all the oil paintings.
 10. Chrome developer tools, Inspector, to get screenshots of the product webpage on various sized devices.
 11. LightHouse on Chrome Developer Tools to check for Accessibility.
 12. Nu HTML Validator to check the HTML code.
 13. W3C CSS Validator to check the CSS code.
-14. Amazon Web Services for the AWS database -Postgres
+14. Amazon Web Services for the AWS database - Postgres
 15. Figma software was used to create the wireframes.
 16. draw.io for Entity Relationship Diagrams (ERD).
 
@@ -143,3 +143,12 @@ Acceptance Criteria:
 
 3. X (formerly known as Twitter):
    [X](https://www.twitter.com)
+
+
+   ## References: 
+   1. Unsplash Royalty Free Images - Mayur Deshpande
+   2. Unsplash Royalty Free Images - Europeana
+   3. Unsplash Royalty Free Images - Vineet Pathak
+   4. Unsplash Royalty Free Images - Europeana
+   5. Unsplash Royalty Free Images - Faith Washere
+   6. Unsplash Royalty Free Images - Boston Public Library
