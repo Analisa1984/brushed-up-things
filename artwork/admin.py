@@ -15,6 +15,7 @@ class ArtworkAdmin(admin.ModelAdmin):
         'title',
         'artist',
         'price',
+        'medium',
         'is_sold',
         'created_at'
         )

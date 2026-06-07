@@ -16,13 +16,19 @@ class Artist(models.Model):
 
 class Artwork(models.Model):
     '''Information about the artwork pieces'''
+    MEDIUM_CHOICES = [
+        ('Oil on Canvas', 'Oil on Canvas'),
+        ('Watercolor', 'Watercolor'),
+        ('Sculpture', 'Sculpture'),
+        ('Drawings', 'Drawings'),
+    ]
     artist = models.ForeignKey(
         'Artist',
         on_delete=models.CASCADE,
         related_name='artworks')
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    medium = models.CharField(max_length=30)
+    medium = models.CharField(max_length=100, choices=MEDIUM_CHOICES)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     image = models.ImageField(upload_to='gallery/', null=True, blank=True)
     is_sold = models.BooleanField(default=False)
