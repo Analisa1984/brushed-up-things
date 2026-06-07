@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load account %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-md-6 mx-auto">
+        <div class="card shadow">
+        <div class="card-body">
+        <h2>{% translate "Sign up" %}</h2>
+        <form method="post">
+          {% csrf_token %}
+          
+          {{ form.first_name|as_crispy_field }}
+          {{ form.last_name|as_crispy_field }}
+          
+          {{ form.email|as_crispy_field }}
+          {{ form.username|as_crispy_field }}
+          
+          {{ form.address|as_crispy_field }}
+          {{ form.contact_number|as_crispy_field }}
+          
+          {{ form.password1|as_crispy_field }}
+          {{ form.password2|as_crispy_field }}
+
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+
+          <button type="submit" class="btn btn-primary">{% translate "Sign up" %}</button>
+        </form>
+        <p class="mt-3 text-center small">
+          {% translate "Already have an account?" %} <a href="{% url 'account_login' %}">{% translate "Log in" %}</a>
+        </p>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
