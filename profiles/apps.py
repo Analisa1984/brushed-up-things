@@ -6,6 +6,4 @@ class ProfilesConfig(AppConfig):
     name = 'profiles'
 
     def ready(self):
-        # The import MUST stay inside this ready method
-        # so Django doesn't read it until the apps are fully loaded!
         import profiles.signals
