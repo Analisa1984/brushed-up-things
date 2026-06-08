@@ -145,10 +145,44 @@ Acceptance Criteria:
    [X](https://www.twitter.com)
 
 
-   ## References: 
-   1. Unsplash Royalty Free Images - Mayur Deshpande
-   2. Unsplash Royalty Free Images - Europeana
-   3. Unsplash Royalty Free Images - Vineet Pathak
-   4. Unsplash Royalty Free Images - Europeana
-   5. Unsplash Royalty Free Images - Faith Washere
-   6. Unsplash Royalty Free Images - Boston Public Library
+## Bug Fixes:
+
+1. Connection Refused Error ( Error No 61)
+![Connection Refused error](assets/images/bugs/bug1.png)
+
+- The Issue: When attempting to register a new user account through the django-allauth signup flow, the application crashed, displaying a yellow ConnectionRefusedError [Errno 61] traceback page.
+
+- The Root Cause: By default, django-allauth attempts to send a real email verification link immediately upon registration. Because a local development environment does not have a live SMTP email server configured, the connection request timed out and failed.
+
+- The Fix: To safely simulate emails in development without a live server, the following setting was added to settings.py:
+  EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+  This solution allowed Django to intercept all outgoing registration emails and print them directly to the terminal console instead of sending them to real email.
+
+2. App Registry Not Ready error
+![App Registry Not Ready Error](assets/images/bugs/bug2.png)
+
+- The Issue: While attempting to implement Django signals for user profiles, the server instantly crashed upon startup, displaying django.core.exceptions.AppRegistryNotReady: Apps aren't loaded yet. in the terminal.
+
+- The Root Cause: This occurred because the standard Django User model was being imported at the absolute top-level of profiles/apps.py. When Django initializes, it loads app      configurations before loading database models. Importing the User model here forced Django to look for a model that hadn't been loaded yet, breaking the startup sequence.
+
+- The Fix: The top-level import was removed. Instead, the import was placed defensively inside the ready() method of the configuration class
+
+![App Registry Not Ready Error](assets/images/bugs/bug2a.png)
+
+3. Django-Allauth Profile Redirect 404 error
+![Django-Allauth Profile Redirect 404 error](assets/images/bugs/bug3.png)
+- The Issue: Upon successful user authentication (login or signup), the browser instantly crashed into a Page not found (404) error, explicitly attempting to target the URL path /accounts/profile/.
+
+- The Root Cause: This occurred because Django-Allauth automatically routes users to a default internal fallback path (/accounts/profile/) after authentication if no other instruction is given. Because the custom profile dashboard in this project is explicitly mapped to /profile/ instead, Django's URL configuration could not find a matching route for the default path.
+
+- The Fix: The brushed_up_things/settings.py file was updated to include an explicit redirect override. The LOGIN_REDIRECT_URL variable was added to the Allauth configuration block and set to target the named 'profile' route:
+LOGIN_REDIORECT_URL = 'profile'
+
+
+## References: 
+1. Unsplash Royalty Free Images - Mayur Deshpande
+2. Unsplash Royalty Free Images - Europeana
+3. Unsplash Royalty Free Images - Vineet Pathak
+4. Unsplash Royalty Free Images - Europeana
+5. Unsplash Royalty Free Images - Faith Washere
+6. Unsplash Royalty Free Images - Boston Public Library
