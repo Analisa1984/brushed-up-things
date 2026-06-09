@@ -63,8 +63,8 @@
   <nav class="navbar bg-body-tertiary border-bottom">
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'index' %}">
-        <img src="{% static 'images/full-logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-        <span>Brushed up Things</span>
+        <img src="{% static 'images/full-logo.png' %}" alt="Logo"  height="90" class="d-inline-block align-text-top object-fit-contain">
+        <span class="fs-3 fw-semi-bold text-dark">Brushed up Things</span>
     </a>
     <div class="d-flex gap-2">
         <a href="#" class="btn btn-outline-dark btn-sm">
@@ -90,7 +90,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <form class="d-flex flex-grow-1 mx-lg-2 order-lg-2" style="max-width: 400px; min-width: 200px;" role="search">
+    <form class="d-flex flex-grow-1 mx-lg-2 order-lg-2" style="max-width: 400px; min-width: 95%;" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
@@ -105,6 +105,9 @@
           <a class="nav-link" href="{% url 'profile' %}">My Account</a>
         </li>
         {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
         </li>
