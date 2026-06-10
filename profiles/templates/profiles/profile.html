@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static crispy_forms_tags %}
 
 {% block content %}
 <div class="container mt-5">
@@ -39,45 +39,8 @@
     <div class="collapse personal-toggle">
     <form action="{% url 'profile' %}" method="POST">
         {% csrf_token %}
-        <div class="mb-3">
-            {{ form.first_name.label_tag }}
-            {{ form.first_name }}
-        </div>
-        <div class="mb-3">
-            {{ form.last_name.label_tag }}
-            {{ form.last_name }}
-        </div>
         
-        <div class="mb-3">
-            {{ form.username.label_tag }} {{ form.username }} </div>
-        
-        <div class="mb-3">
-            {{ form.email.label_tag }} {{ form.email }} </div>
-        
-        <div class="mb-3">
-    {{ form.default_phone_number.label_tag }}
-    {{ form.default_phone_number }}
-</div>
-<div class="mb-3">
-    {{ form.default_street_address1.label_tag }}
-    {{ form.default_street_address1 }}
-</div>
-<div class="mb-3">
-    {{ form.default_street_address2.label_tag }}
-    {{ form.default_street_address2 }}
-</div>
-<div class="mb-3">
-    {{ form.default_town_or_city.label_tag }}
-    {{ form.default_town_or_city }}
-</div>
-<div class="mb-3">
-    {{ form.default_county.label_tag }}
-    {{ form.default_county }}
-</div>
-<div class="mb-3">
-    {{ form.default_postcode.label_tag }}
-    {{ form.default_postcode }}
-</div>
+        {{ form|crispy }}
         
         <div class="mt-3">
             <button type="submit" class="btn btn-sm btn-primary me-2">Save Changes</button>

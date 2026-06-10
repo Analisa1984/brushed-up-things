@@ -1,5 +1,6 @@
 from django import forms
 from .models import UserProfile
+from artwork.models import Artist, Artwork
 
 
 class CustomSignupForm(forms.Form):
@@ -110,3 +111,27 @@ class UserProfileForm(forms.ModelForm):
                 placeholder = friendly_names[field_name]
                 field.widget.attrs['placeholder'] = placeholder
                 field.label = placeholder
+
+
+class ArtistForm(forms.ModelForm):
+    class Meta:
+        model = Artist
+        fields = ['name', 'bio', 'image']
+
+
+class ArtworkForm(forms.ModelForm):
+    class Meta:
+        model = Artwork
+        fields = [
+            'artist',
+            'title',
+            'description',
+            'medium',
+            'price',
+            'image',
+            'is_sold',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs['rows'] = 4
