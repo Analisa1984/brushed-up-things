@@ -11,5 +11,5 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     a User object is created.
     """
     if created:
-        UserProfile.objects.create(user=instance)
+        UserProfile.objects.get_or_create(user=instance)
     instance.userprofile.save()
