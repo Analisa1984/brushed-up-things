@@ -16,9 +16,27 @@ def index(request):
 
 
 def gallery(request):
-    artworks = Artwork.objects.filter(is_sold=False).order_by('-created_at')
+    """This function is to display the art collections also with filters"""
+    # filters all artworks and artists
+    artworks = Artwork.objects.all()
+    all_artists = Artist.objects.all().order_by('name')
+
+    # this code will get the requested items by the filter user wants
+    selected_medium = request.GET.get('medium')
+    selected_artist_id = request.GET.get('artist')
+
+    if selected_medium:
+        artworks = artworks.filter(medium__icontains=selected_medium)
+    if selected_artist_id:
+        artworks = artworks.filter(artist_id=selected_artist_id)
+
     template = 'artwork/gallery.html'
-    context = {'artworks': artworks}
+    context = {
+        'artworks': artworks,
+        'all_artists': all_artists,
+        'current_medium': selected_medium,
+        'current_artist': selected_artist_id,
+        }
     return render(request, template, context)
 
 
