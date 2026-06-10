@@ -10,10 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const deleteButtons = document.querySelectorAll('.delete-artist-btn');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (event) {
-            const confirmDelete = confirm('Are you sure you want to delete this artist?');
+            const itemName = this.getAttribute('data-name') || 'this item';
+            const confirmDelete = confirm(`Are you sure you want to delete "${itemName}"?`);
             if (!confirmDelete) {
                 event.preventDefault();
             }
