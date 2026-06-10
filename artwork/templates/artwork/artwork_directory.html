@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h2 class="display-6 font-weight-bold">Artwork Inventory Directory</h2>
+            <p class="text-muted">Manage, edit, or remove items from the gallery database.</p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="ps-4">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Artist</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for artwork in artworks %}
+                        <tr>
+                            <td class="ps-4">
+                                {% if artwork.image %}
+                                    <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-light d-flex align-items-center justify-content-center border" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-image text-muted"></i>
+                                    </div>
+                                {% endif %}
+                            </td>
+                            
+                            <td><strong>{{ artwork.title }}</strong></td>
+                            
+                            <td>{{ artwork.artist.name }}</td>
+                            
+                            <td>£{{ artwork.price }}</td>
+                            
+                            <td>
+                                {% if artwork.is_sold %}
+                                    <span class="badge bg-secondary">Sold</span>
+                                {% else %}
+                                    <span class="badge bg-success">Available</span>
+                                {% endif %}
+                            </td>
+                            
+                            <td class="text-end pe-4">
+                                <a href="{% url 'edit_artwork' artwork.id %}" class="btn btn-sm btn-outline-primary me-2">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a href="{% url 'delete_artwork' artwork.id %}" class="btn btn-sm btn-outline-danger delete-btn" data-name="{{ artwork.title }}">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <i class="fas fa-palette fa-2x mb-3 d-block"></i>
+                                No artworks found in the inventory database yet.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
