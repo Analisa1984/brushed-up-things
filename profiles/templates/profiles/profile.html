@@ -13,50 +13,51 @@
     </div>
 
     <div class="row">
-        
         <div class="col-12 mb-4">
             <div class="card p-3">
                 <h3 class="d-flex justify-content-between align-items-center">
-                    <span class="fw-light">Personal Details</span>
+                    <span class="fw-light">Personal & Shipping Details</span>
                     <button class="btn p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target=".personal-toggle" aria-expanded="false">
-            <i class="bi bi-pencil fs-5 text-muted"></i>
-        </button>
+                        <i class="bi bi-pencil fs-5 text-muted"></i>
+                    </button>
                 </h3>
+                
                 <div class="collapse show personal-toggle">
-    <p class="mb-1"><strong>First Name:</strong> {{ user.first_name|default:"Not provided" }}</p>
-    <p class="mb-1"><strong>Last Name:</strong> {{ user.last_name|default:"Not provided" }}</p>
-    <p class="mb-1"><strong>Username:</strong> {{ user.username }}</p>
-    <p class="mb-1"><strong>Email Address:</strong> {{ user.email }}</p>
-    <p class="mb-1"><strong>Contact Number:</strong> {{ profile.default_phone_number|default:"Not provided" }}</p>
-    <p class="mb-0"><strong>Mailing Address:</strong><br>
-                {% if profile.default_address %}
-            {{ profile.default_address|linebreaksbr }}
-        {% else %}
-            <span class="text-muted">No address provided yet.</span>
-        {% endif %}
-            </p>
-</div>
-    <div class="collapse personal-toggle">
-    <form action="{% url 'profile' %}" method="POST">
-        {% csrf_token %}
-        
-        {{ form|crispy }}
-        
-        <div class="mt-3">
-            <button type="submit" class="btn btn-sm btn-primary me-2">Save Changes</button>
-            <button type="reset" class="btn btn-sm btn-secondary" data-bs-toggle="collapse" data-bs-target=".personal-toggle">Cancel</button> </div>
-    </form>
-</div>
+                    <p class="mb-1"><strong>First Name:</strong> {{ user.first_name|default:"Not provided" }}</p>
+                    <p class="mb-1"><strong>Last Name:</strong> {{ user.last_name|default:"Not provided" }}</p>
+                    <p class="mb-1"><strong>Username:</strong> {{ user.username }}</p>
+                    <p class="mb-1"><strong>Email Address:</strong> {{ user.email }}</p>
+                    <p class="mb-1"><strong>Contact Number:</strong> {{ profile.default_phone_number|default:"Not provided" }}</p>
+                    <p class="mb-0"><strong>Mailing Address:</strong><br>
+                        {% if profile.default_street_address1 %}
+                            {{ profile.default_street_address1 }}<br>
+                            {% if profile.default_street_address2 %}
+                                {{ profile.default_street_address2 }}<br>
+                            {% endif %}
+                            {{ profile.default_town_or_city }}<br>
+                            {% if profile.default_county %}
+                                {{ profile.default_county }}<br>
+                            {% endif %}
+                            {{ profile.default_postcode }}
+                        {% else %}
+                            <span class="text-muted">No address provided yet.</span>
+                        {% endif %}
+                    </p>
                 </div>
-        
 
-        <div class="col-12 mb-4">
-            <div class="card p-3">
-                <h3 class="d-flex justify-content-between align-items-center">
-                    <span class="fw-light">Shipping Details</span>
-                    <i class="bi bi-pencil fs-5 text-muted" style="cursor: pointer;"></i>
-                </h3>
+                <div class="collapse personal-toggle">
+                    <form action="{% url 'profile' %}" method="POST">
+                        {% csrf_token %}
+                        
+                        {{ form|crispy }}
+                        
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-sm btn-primary me-2">Save Changes</button>
+                            <button type="reset" class="btn btn-sm btn-secondary" data-bs-toggle="collapse" data-bs-target=".personal-toggle">Cancel</button>
+                        </div>
+                    </form>
                 </div>
+            </div>
         </div>
         
         <div class="col-12 mb-4">
@@ -89,8 +90,10 @@
                 </button>
             </div>
         </div>
+    </div> 
+</div> 
 
-    </div> </div> <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,7 +105,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                
                 <form action="{% url 'delete_profile' %}" method="POST" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger btn-sm">Yes, Delete Permanently</button>
@@ -111,5 +113,4 @@
         </div>
     </div>
 </div>
-
 {% endblock content %}
