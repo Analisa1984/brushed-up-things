@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
 
 
 # Create your views here.
@@ -34,3 +35,13 @@ def remove_from_cart(request, item_id):
 
     except Exception as e:
         return redirect(reverse('shopping_cart'))
+
+
+def clear_cart(request):
+    """Clear the entire shopping cart"""
+    if 'cart' in request.session:
+        del request.session['cart']
+        messages.success(request, "Your shopping cart has been emptied!")
+    else:
+        messages.info(request, "Your shopping cart is already empty.")
+    return redirect(reverse('shopping_cart'))
