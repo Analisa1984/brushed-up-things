@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'cart',
+    'checkout',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
