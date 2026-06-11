@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (event) {
             const itemName = this.getAttribute('data-name') || 'this item';
-            const confirmDelete = confirm(`Are you sure you want to delete "${itemName}"?`);
+            const confirmDelete = confirm(`Are you sure you want to delete ${itemName}?`);
             if (!confirmDelete) {
                 event.preventDefault();
             }
