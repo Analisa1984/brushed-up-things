@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
@@ -31,6 +32,44 @@ class Order(models.Model):
                                       null=False,
                                       default=0)
 
+    def _generate_order_number(self):
+        """
+        Generate random unique order number using uuid
+        """
+        return uuid.uuid4().hex.upper()
+
+    def update_total(self):
+        """
+        Update grand total each time a line item is added,
+        accounting for delivery costs.
+        """
+        # Sums up all the line item totals linked to this specific order
+        self.order_total = self.lineitems.aggregate(
+            Sum('lineitem_total'))['lineitem_total__sum'] or 0
+
+        # the delivery cost calculation
+        if self.order_total < settings.FREE_RELIABILITY_THRESHOLD:
+            self.delivery_cost = (
+                self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
+            )
+        else:
+            self.delivery_cost = 0
+
+        self.grand_total = self.order_total + self.delivery_cost
+        super().self.save(
+            updat_fields=['order_total', 'delivery_cost', 'grand-total']
+            )
+
+    def save(self, *args, **kwargs):
+        """
+        If the ordernumber is not set
+        example by changing details
+        this function will set it
+        """
+        if not self.order_number:
+            self.order_number = self._generate_order_number()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.order_number
 
@@ -50,3 +89,21 @@ class OrderLineItem(models.Model):
                                          decimal_places=2,
                                          null=False,
                                          default=0)
+
+    def save(self, *args, **kwargs):
+        """
+        Automatically calculate the line item total on save,
+        then trigger the parent order to update its grand total.
+        """
+        self.lineitem_total = self.artwork.price * self.quantity
+        super().save(*args, **kwargs)
+        self.order.update_total()
+
+    def __str__(self):
+        """
+        Returns a recognizable label for the admin panel
+        """
+        return (
+            f'"{self.artwork.title}" by {self.artwork.artist.name} '
+            f'on order {self.order.order_number}'
+        )

@@ -175,3 +175,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = 'profile'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
+
+# Delivery fees settings for threshold for free deliv and
+# if not free deliver then the percentage charge
+FREE_RELIABILITY_THRESHOLD = 50
+STANDARD_DELIVERY_PERCENTAGE = 10
