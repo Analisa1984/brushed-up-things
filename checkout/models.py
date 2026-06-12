@@ -7,6 +7,25 @@ from django_countries.fields import CountryField
 
 
 # Create your models here.
+class StoreConfiguration(models.Model):
+    """
+    Allows admins to dynamically change delivery rules
+    via the Django Admin panel.
+    """
+    free_shipping_threshold = models.DecimalField(
+        max_digits=6, decimal_places=2, default=50.00
+    )
+    standard_delivery_percentage = models.DecimalField(
+        max_digits=5, decimal_places=2, default=10.00
+    )
+
+    class Meta:
+        verbose_name_plural = "Store Configuration"
+
+    def __str__(self):
+        return "Global Store Configuration"
+
+
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
     first_name = models.CharField(max_length=50, null=False, blank=False)
@@ -41,23 +60,27 @@ class Order(models.Model):
     def update_total(self):
         """
         Update grand total each time a line item is added,
-        accounting for delivery costs.
+        accounting for shipping costs.
         """
         # Sums up all the line item totals linked to this specific order
         self.order_total = self.lineitems.aggregate(
             Sum('lineitem_total'))['lineitem_total__sum'] or 0
 
-        # the delivery cost calculation
-        if self.order_total < settings.FREE_RELIABILITY_THRESHOLD:
-            self.delivery_cost = (
-                self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
-            )
-        else:
-            self.delivery_cost = 0
+        # this section of code will get the threshold for discount
+        # as well as the discount percentage if admin changes it
+        config = StoreConfiguration.objects.first()
+        threshold = config.free_shipping_threshold if config else 50.00
+        percentage = config.standard_delivery_percentage if config else 10.00
 
-        self.grand_total = self.order_total + self.delivery_cost
-        super().self.save(
-            updat_fields=['order_total', 'delivery_cost', 'grand-total']
+        # the shipping cost calculation
+        if self.order_total < threshold:
+            self.shipping_cost = self.order_total * (percentage / 100)
+        else:
+            self.shipping_cost = 0
+
+        self.grand_total = self.order_total + self.shipping_cost
+        super().save(
+            update_fields=['order_total', 'shipping_cost', 'grand_total']
             )
 
     def save(self, *args, **kwargs):
