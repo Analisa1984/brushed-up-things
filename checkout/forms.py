@@ -1,5 +1,6 @@
 from django import forms
 from .models import Order
+from django_countries.widgets import CountrySelectWidget
 
 
 class OrderForm(forms.ModelForm):
@@ -17,6 +18,10 @@ class OrderForm(forms.ModelForm):
         labels and set autofocus on first field
         """
         super().__init__(*args, **kwargs)
+
+        if 'country' in self.fields:
+            self.fields['country'].choices = [('GB', 'United Kingdom')]
+
         placeholders = {
             'first_name': 'First Name',
             'last_name': 'Last Name',

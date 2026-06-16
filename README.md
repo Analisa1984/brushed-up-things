@@ -186,3 +186,8 @@ LOGIN_REDIORECT_URL = 'profile'
 4. Unsplash Royalty Free Images - Europeana
 5. Unsplash Royalty Free Images - Faith Washere
 6. Unsplash Royalty Free Images - Boston Public Library
+7. Stripe Payments Integration
+
+   **Stripe Developer Documentation** – Utilized for the foundational JavaScript SDK architecture, including base Element initialization, secure UI iframe generation, and asynchronous payment lifecycle confirmation.  
+  * *Source:* [Stripe Docs: Accept a Payment](https://stripe.com/docs/payments/accept-a-payment)
+* **Custom Django & jQuery Implementation** – Developed custom front-end logic to bridge the Django backend with the Stripe API. This includes using jQuery for dynamic DOM element selection, handling secure data-extraction and string sanitization via `.slice()`, and implementing defensive UI controls (disabling buttons and inputs) to prevent duplicate form submissions.

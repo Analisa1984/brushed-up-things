@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5 text-center">
+    <h2 class="text-success mb-4">Thank You for Your Order!</h2>
+    <p>Your order has been successfully processed.</p>
+    <p class="font-weight-bold">Order Number: {{ order.order_number }}</p>
+    <p>A confirmation email has been sent to <strong>{{ order.email }}</strong>.</p>
+    
+    <a href="{% url 'gallery' %}" class="btn btn-primary mt-4">Back to Gallery</a>
+</div>
+{% endblock %}

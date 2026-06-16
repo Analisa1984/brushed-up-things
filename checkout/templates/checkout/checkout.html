@@ -24,7 +24,7 @@
                 </fieldset>
 
                 <div class="submit-button text-end mt-5 mb-2">                    
-                    <a href="{% url 'view_cart' %}" class="btn btn-outline-black rounded-0 me-2">
+                    <a href="{% url 'shopping_cart' %}" class="btn btn-outline-black rounded-0 me-2">
                         <span class="icon"><i class="fas fa-chevron-left"></i></span>
                         <span>Adjust Bag</span>
                     </a>
@@ -43,4 +43,6 @@
     {{ block.super }}
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}

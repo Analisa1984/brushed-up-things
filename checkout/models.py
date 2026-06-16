@@ -38,6 +38,7 @@ class Order(models.Model):
     county = models.CharField(max_length=60, null=True, blank=True)
     country = CountryField(blank_label='Country *', null=False, blank=False)
     post_code = models.CharField(max_length=30, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     shipping_cost = models.DecimalField(max_digits=6,
                                         decimal_places=2,

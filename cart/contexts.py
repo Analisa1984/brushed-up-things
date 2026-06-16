@@ -1,5 +1,8 @@
 from django.shortcuts import get_object_or_404
+from decimal import Decimal
+from django.conf import settings
 from artwork.models import Artwork
+from checkout.models import StoreConfiguration
 
 
 def cart_contents(request):
@@ -25,10 +28,26 @@ def cart_contents(request):
             'quantity': quantity,
             'artwork': artwork,
         })
+
+    config = StoreConfiguration.objects.first()
+    threshold = config.free_shipping_threshold if config else Decimal('50.00')
+    percentage = (
+        config.standard_delivery_percentage if config else Decimal('10.00')
+        )
+
+    if total < threshold:
+        shipping_cost = total * (percentage / Decimal('100'))
+    else:
+        shipping_cost = Decimal('0.00')
+
+    grand_total = total + shipping_cost
+
     context = {
         'cart_items': cart_items,
         'total': total,
         'product_count': product_count,
+        'shipping_cost': shipping_cost,
+        'grand_total': grand_total,
     }
 
     return context
