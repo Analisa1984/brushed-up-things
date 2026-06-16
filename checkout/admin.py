@@ -3,7 +3,7 @@ from .models import Order, OrderLineItem, StoreConfiguration
 
 
 class OrderLineItemAdminInline(admin.TabularInline):
-    """Allows us to add/edit line items right inside the Order page"""
+    """ to add/edit line items right inside the Order page"""
     model = OrderLineItem
     readonly_fields = ('lineitem_total',)
 
@@ -12,13 +12,14 @@ class OrderLineItemAdminInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = (OrderLineItemAdminInline,)
 
+    # fields that cant be adjusted by admin or staff
     readonly_fields = (
-        'order_number', 'shipping_cost',
+        'order_number', 'shipping_cost', 'date',
         'order_total', 'grand_total'
     )
 
     fields = (
-        'order_number', 'first_name', 'last_name',
+        'order_number', 'date', 'first_name', 'last_name',
         'email', 'phone_number', 'street_address1',
         'street_address2', 'town_or_city', 'county',
         'country', 'post_code', 'shipping_cost',
@@ -28,11 +29,12 @@ class OrderAdmin(admin.ModelAdmin):
     # This controls what you see on the main list dashboard screen
     list_display = (
         'order_number', 'first_name',
-        'last_name', 'grand_total'
+        'last_name', 'order_total',
+        'shipping_cost', 'grand_total'
     )
 
     # Automatically order them by newest first
-    ordering = ('-id',)
+    ordering = ('date',)
 
 
 admin.site.register(StoreConfiguration)
