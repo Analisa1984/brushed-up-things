@@ -79,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
                 'cart.contexts.cart_contents',
             ],
         },
@@ -169,8 +170,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_SIGNUP_FORM_CLASS = 'profiles.forms.CustomSignupForm'
 
-# ACCOUNT_EMAIL_VERIFICATION = 'none'
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = 'profile'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
@@ -180,3 +179,8 @@ ACCOUNT_LOGOUT_ON_GET = True
 # if not free deliver then the percentage charge
 FREE_RELIABILITY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
+
+# Stripe Settings
+STRIPE_CURRENCY = 'gbp'
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
