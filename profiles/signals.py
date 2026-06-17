@@ -10,6 +10,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Automatically create or update a UserProfile whenever
     a User object is created.
     """
+
     if created:
         UserProfile.objects.get_or_create(user=instance)
     instance.userprofile.save()
