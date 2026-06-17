@@ -6,13 +6,14 @@ from .models import UserProfile
 from .forms import UserProfileForm, ArtistForm, ArtworkForm
 from artwork.models import Artist, Artwork
 
+
 def is_staff_check(user):
     return user.is_authenticated and user.is_staff
 
 
 @user_passes_test(is_staff_check)
 def staff_dashboard(request):
-    """display staff portal"""""
+    """Display staff portal"""
     artworks = Artwork.objects.all()
     artists = Artist.objects.all()
 
@@ -24,7 +25,6 @@ def staff_dashboard(request):
     return render(request, template, context)
 
 
-# Create your views here.
 @login_required
 def profile(request):
     """Show and update the user's profile"""
@@ -34,20 +34,16 @@ def profile(request):
             request.POST, instance=profile, user=request.user)
         if form.is_valid():
             form.save()
-            request.user.username = form.cleaned_data['username']
-            request.user.first_name = form.cleaned_data['first_name']
-            request.user.last_name = form.cleaned_data['last_name']
-            request.user.email = form.cleaned_data['email']
-            request.user.save()
             messages.success(request, "Profile updated successfully!")
         else:
             messages.error(
                 request, "Update failed. Please ensure the form is valid."
-                )
+            )
     else:
         form = UserProfileForm(instance=profile, user=request.user)
 
-    orders = []
+    # Pull real transaction history from checkout app
+    orders = profile.orders.all()
 
     template = 'profiles/profile.html'
     context = {
@@ -60,7 +56,7 @@ def profile(request):
 
 @login_required
 def delete_profile(request):
-    """this function is to allow the user to delete thir account"""
+    """This function is to allow the user to delete their account"""
     if request.method == 'POST':
         user = request.user
         logout(request)
@@ -79,15 +75,21 @@ def delete_profile(request):
 
 @user_passes_test(is_staff_check)
 def add_artist(request):
-    """ View for staff members to add a new artist to the gallery """
+    """View for staff members to add a new artist to the gallery"""
     if request.method == 'POST':
         form = ArtistForm(request.POST, request.FILES)
         if form.is_valid():
             artist = form.save()
-            messages.success(request, f'Successfully added artist: {artist.name}')
+            messages.success(request, f'Successfully added artist: {
+                artist.name
+                }'
+                )
             return redirect('staff_dashboard')
         else:
-            messages.error(request, 'Failed to add artist. Please ensure the form is valid.')
+            messages.error(
+                request,
+                'Failed to add artist. Please ensure the form is valid.'
+            )
     else:
         form = ArtistForm()
 

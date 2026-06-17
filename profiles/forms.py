@@ -23,13 +23,13 @@ class CustomSignupForm(forms.Form):
         label='First Name',
         required=True,
         widget=forms.TextInput(attrs={'placeholder': 'First Name'})
-        )
+    )
     last_name = forms.CharField(
         max_length=30,
         label='Last Name',
         required=True,
         widget=forms.TextInput(attrs={'placeholder': 'Last Name'})
-        )
+    )
     email = forms.EmailField(
         max_length=254,
         label='Email Address',
@@ -43,8 +43,8 @@ class CustomSignupForm(forms.Form):
         widget=forms.TextInput(attrs={
             'type': 'tel',
             'placeholder': 'Phone Number'}
-            )
         )
+    )
     street_address1 = forms.CharField(
         max_length=80,
         label='Street Address 1',
@@ -57,7 +57,7 @@ class CustomSignupForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'Street Address 2 (Optional)'}
-            )
+        )
     )
     town_or_city = forms.CharField(
         max_length=40,
@@ -71,7 +71,7 @@ class CustomSignupForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'County, State or Region (Optional)'}
-            )
+        )
     )
     postcode = forms.CharField(
         max_length=20,
@@ -98,22 +98,22 @@ class CustomSignupForm(forms.Form):
 class UserProfileForm(forms.ModelForm):
     username = forms.CharField(
         max_length=150, required=False, label="Username"
-        )
+    )
     first_name = forms.CharField(
         max_length=30,
         required=False,
         label="First Name"
-        )
+    )
     last_name = forms.CharField(
         max_length=30,
         required=False,
         label="Last Name"
-        )
+    )
     email = forms.EmailField(
         max_length=254,
         required=False,
         label="Email Address"
-        )
+    )
 
     class Meta:
         model = UserProfile
@@ -123,7 +123,8 @@ class UserProfileForm(forms.ModelForm):
             'default_street_address2',
             'default_town_or_city',
             'default_county',
-            'default_postcode'
+            'default_postcode',
+            'default_country',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -143,20 +144,27 @@ class UserProfileForm(forms.ModelForm):
             'default_town_or_city': 'Town or City',
             'default_county': 'County, State or Region',
             'default_postcode': 'Postal Code',
+            'default_country': 'Country',
         }
 
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control \
-                border-secondary-subtle shadow-sm mb-2'
+            # Uniform modern styling classes across inputs
+            field.widget.attrs['class'] = (
+                'form-control border-secondary-subtle shadow-sm mb-2'
+            )
+
             if field_name in ['default_street_address1',
                               'default_town_or_city', 'default_postcode']:
                 field.required = True
+
             if isinstance(field.widget, forms.Textarea):
                 field.widget.attrs['rows'] = 4
 
+            # Safe lookup validation for baseline attributes
             if field_name in friendly_names:
                 placeholder = friendly_names[field_name]
-                field.widget.attrs['placeholder'] = placeholder
+                if field_name != 'default_country':
+                    field.widget.attrs['placeholder'] = placeholder
                 field.label = placeholder
 
     def save(self, commit=True):
