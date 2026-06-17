@@ -188,21 +188,28 @@ STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 
-if 'USE_AWS' in os.environ or os.environ.get('HOME') == '/app' or 'HEROKU_BUILD' in os.environ:
+if 'USE_AWS' in os.environ:
+    STATICFILES_LOCATION = 'static'
+    MEDIAFILES_LOCATION = 'media'
+
     AWS_STORAGE_BUCKET_NAME = 'brush-up-things-images'
     AWS_S3_REGION_NAME = 'us-east-1'
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-
-    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    STATICFILES_LOCATION = 'static'
-    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-    MEDIAFILES_LOCATION = 'media'
 
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "custom_storages.MediaStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "custom_storages.StaticStorage",
+        },
+    }
 
     STATIC_ROOT = BASE_DIR / 'staticfiles'
 else:
@@ -210,3 +217,12 @@ else:
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
