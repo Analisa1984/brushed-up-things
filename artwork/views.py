@@ -15,6 +15,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def about_view(request):
+    return render(request, 'about.html')
+
+
 def gallery(request):
     """This function is to display the art collections also with filters"""
     # filters all artworks and artists
