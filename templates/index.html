@@ -1,6 +1,221 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome to Brushed Up Things </h1>
-    <p>This is the index page.</p>
+<div class="container-fluid px-0">
+    
+    <div class="p-5 mb-5 gallery-hero text-center position-relative overflow-hidden shadow-sm">
+        <div class="py-4 position-relative z-index-2">
+            <h1 class="display-4 mb-3 text-dark tracking-tight">Welcome to Brushed Up Things</h1>
+            <p class="col-lg-6 mx-auto fs-5 text-muted fw-light">
+                Discover a world of handpicked expressions, dramatic textures, and unconventional forms crafted by our premier collective of fine artists.
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+                <a href="{% url 'gallery' %}" class="btn btn-dark btn-lg px-4 gap-3 rounded-0 fs-6 shadow-sm">Explore Gallery Collection</a>
+                <a href="#" class="btn btn-outline-secondary btn-lg px-4 rounded-0 fs-6">Meet Our Creators</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-5 justify-content-center">
+        <div class="col-12 col-lg-10">
+            <div class="card quote-card text-light p-4 p-md-5 border-0 shadow text-center">
+                <div class="card-body">
+                    <div id="quoteCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+                        <div class="carousel-inner">
+                            
+                            <div class="carousel-item active">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"The aim of art is to represent not the outward appearance of things, but their inward significance."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Aristotle</footer>
+                                </blockquote>
+                            </div>
+                            
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"Art is not what you see, but what you make others see."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Edgar Degas</footer>
+                                </blockquote>
+                            </div>
+                            
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"Art is never finished, only abandoned."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Leonardo da Vinci</footer>
+                                </blockquote>
+                            </div>
+
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"My paintings are never what I expected, but I'm never surprised."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Andy Warhol</footer>
+                                </blockquote>
+                            </div>
+
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"Art has to move you and design does not, unless it's a good design for a bus."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">David Hockney</footer>
+                                </blockquote>
+                            </div>
+
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"If there's a narrative, I want it in the flesh."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Jenny Saville</footer>
+                                </blockquote>
+                            </div>
+
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"I think a lot of art making is listening to yourself."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Kiki Smith</footer>
+                                </blockquote>
+                            </div>
+
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"When people make judgements they close all possibility around them."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Jeff Koons</footer>
+                                </blockquote>
+                            </div>
+
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"I feel there is everything to do yet."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Anish Kapoor</footer>
+                                </blockquote>
+                            </div>
+
+                            <div class="carousel-item">
+                                <blockquote class="blockquote mb-0 px-4">
+                                    <p class="quote-text fw-light italic">"Animals themselves aren't all that interesting. What I'm after is their relationship to humans, the stories and tragedies we create around them."</p>
+                                    <footer class="blockquote-footer mt-3 text-muted fs-6">Walton Ford</footer>
+                                </blockquote>
+                            </div>
+
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#quoteCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon opacity-25" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#quoteCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon opacity-25" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 pt-3">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fs-2 text-dark artist-section-title">Featured Resident Artists</h2>
+            <hr class="w-25 mx-auto section-divider">
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12 mb-4">
+            <h3 class="fs-4 text-dark border-bottom pb-2 artist-section-title">Master Oil Painters</h3>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">D</div>
+                <h4 class="artist-name">Dabid Shockney</h4>
+                <p class="artist-style">Contemporary Realism</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">V</div>
+                <h4 class="artist-name">Vablo Vicasso</h4>
+                <p class="artist-style">Abstract & Cubism</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">B</div>
+                <h4 class="artist-name">Benny Gaville</h4>
+                <p class="artist-style">Figurative Portraiture</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">H</div>
+                <h4 class="artist-name">Herald Richie</h4>
+                <p class="artist-style">Textured Expressionism</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12 mb-4">
+            <h3 class="fs-4 text-dark border-bottom pb-2 artist-section-title">Sculptors & Form Designers</h3>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">H</div>
+                <h4 class="artist-name">Hantony Hormley</h4>
+                <p class="artist-style">Iron & Spatial Form</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">B</div>
+                <h4 class="artist-name">Bibi Smithers</h4>
+                <p class="artist-style">Mixed Media Statues</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">K</div>
+                <h4 class="artist-name">Keff Joons</h4>
+                <p class="artist-style">Neo-Pop Installations</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">B</div>
+                <h4 class="artist-name">Banishe Lapoor</h4>
+                <p class="artist-style">Reflective Structuralism</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12 mb-4">
+            <h3 class="fs-4 text-dark border-bottom pb-2 artist-section-title">Fine Watercolorists</h3>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">B</div>
+                <h4 class="artist-name">Balton Hord</h4>
+                <p class="artist-style">Naturalist & Wildlife</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">M</div>
+                <h4 class="artist-name">Malvaro Bastagnet</h4>
+                <p class="artist-style">Atmospheric Landscapes</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">S</div>
+                <h4 class="artist-name">Stephen Yang</h4>
+                <p class="artist-style">Luminous Realism</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+            <div class="card h-100 text-center artist-exhibit-card">
+                <div class="artist-initial-avatar" aria-hidden="true">J</div>
+                <h4 class="artist-name">Josephine Zbuvvic</h4>
+                <p class="artist-style">Impressionist Vistas</p>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}

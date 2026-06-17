@@ -1,0 +1,142 @@
+/*  FONTS & ROOT DESIGN SYSTEM VARIABLES */
+
+:root {
+    /* Color Palette */
+    --gallery-bg: #fdfbf7;         /* Warm Alabaster/Canvas tone */
+    --gallery-dark: #1a1a1a;       /* Deep Charcoal Ink */
+    --gallery-muted: #6e6e6a;      /* Slate Grey for subtitles and secondary details */
+    --gallery-border: #e8e5df;     /* Subtle warm border lines */
+    --gallery-accent: #9e715c;     /* Soft terracotta/earthy copper tone for elegant highlights */
+    --card-surface: #ffffff;       /* Pure white crisp surface for floating components */
+
+    /* Typography Layers */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+    /* Interface Physics */
+    --gallery-transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    --gallery-shadow: 0 4px 20px rgba(26, 26, 26, 0.03);
+    --gallery-shadow-hover: 0 12px 30px rgba(158, 113, 92, 0.08);
+}
+ 
+/*  GLOBAL BODY & OVERRIDES */
+body {
+    background-color: var(--gallery-bg) !important;
+    font-family: var(--font-sans);
+    color: var(--gallery-dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Elegant Serifs for major structural displays */
+h1, h2, h3, .navbar-brand, .blockquote p {
+    font-family: var(--font-serif) !important;
+    letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   3. NAVIGATION & FOOTER CUSTOM REFINEMENTS
+   ========================================================================== */
+.navbar {
+    background-color: var(--gallery-bg) !important;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+.navbar-brand span {
+    font-size: 1.75rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em;
+}
+
+.nav-link {
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    color: var(--gallery-dark) !important;
+    transition: var(--gallery-transition);
+}
+
+.nav-link:hover {
+    color: var(--gallery-accent) !important;
+}
+
+footer {
+    background-color: #f7f4ee !important; /* Slightly distinct deeper tone for baseline grounded anchor */
+    border-top: 1px solid var(--gallery-border) !important;
+}
+
+/* ==========================================================================
+   4. HERO & CAROUSEL COMPONENT ELEVATIONS
+   ========================================================================== */
+.gallery-hero {
+    background-color: var(--card-surface) !important;
+    border: 1px solid var(--gallery-border) !important;
+    border-radius: 0px !important; /* Sharp frame edge lines feel more premium gallery-esque */
+}
+
+.quote-card {
+    background-color: var(--gallery-dark) !important;
+    border-radius: 0px !important;
+}
+
+.quote-text {
+    font-size: 1.65rem !important;
+    line-height: 1.5;
+    color: #f7f4ee;
+}
+
+/* ==========================================================================
+   5. ARTIST GRID COMPONENT DECORATORS
+   ========================================================================== */
+.section-divider {
+    border-color: var(--gallery-accent) !important;
+    opacity: 0.3;
+}
+
+.artist-section-title {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* The Exhibition Card: Eliminates icons for clean typography and subtle hover lifting physics */
+.artist-exhibit-card {
+    background-color: var(--card-surface) !important;
+    border: 1px solid var(--gallery-border) !important;
+    border-radius: 0px !important; /* Crisp professional square corners like art mats */
+    padding: 2.5rem 1.5rem !important;
+    transition: var(--gallery-transition);
+    box-shadow: var(--gallery-shadow);
+}
+
+/* Dramatic Hover Frame Lift effect */
+.artist-exhibit-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gallery-accent) !important;
+    box-shadow: var(--gallery-shadow-hover);
+}
+
+.artist-initial-avatar {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    font-style: italic;
+    color: var(--gallery-accent);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+}
+
+.artist-name {
+    font-family: var(--font-serif);
+    font-size: 1.25rem !important;
+    font-weight: 600;
+    color: var(--gallery-dark);
+    margin-bottom: 0.25rem;
+}
+
+.artist-style {
+    font-family: var(--font-sans);
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gallery-muted);
+}
