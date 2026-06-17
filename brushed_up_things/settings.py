@@ -204,6 +204,8 @@ if 'USE_AWS' in os.environ:
 
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
 else:
     STATIC_URL = '/static/'
     STATIC_ROOT = BASE_DIR / 'staticfiles'
