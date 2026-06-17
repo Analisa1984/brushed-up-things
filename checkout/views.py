@@ -8,6 +8,7 @@ from .models import Order, OrderLineItem
 from artwork.models import Artwork
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def checkout(request):
     """
@@ -22,21 +23,21 @@ def checkout(request):
         cart = request.session.get('cart', {})
 
         form_data = {
-            'first_name': request.POST['first_name'],
-            'last_name': request.POST['last_name'],
-            'email': request.POST['email'],
-            'phone_number': request.POST['phone_number'],
-            'country': request.POST['country'],
-            'post_code': request.POST['post_code'],
-            'town_or_city': request.POST['town_or_city'],
-            'street_address1': request.POST['street_address1'],
-            'street_address2': request.POST['street_address2'],
-            'county': request.POST['county'],
+            'first_name': request.POST.get('first_name'),
+            'last_name': request.POST.get('last_name'),
+            'email': request.POST.get('email'),
+            'phone_number': request.POST.get('phone_number'),
+            'country': request.POST.get('country'),
+            'post_code': request.POST.get('post_code'),
+            'town_or_city': request.POST.get('town_or_city'),
+            'street_address1': request.POST.get('street_address1'),
+            'street_address2': request.POST.get('street_address2'),
+            'county': request.POST.get('county'),
         }
 
         order_form = OrderForm(form_data)
         if order_form.is_valid():
-            order = order_form.save()     
+            order = order_form.save()
             # Iterate through cart items to create line items
             for item_id, quantity in cart.items():
                 try:
@@ -68,13 +69,19 @@ def checkout(request):
                 reverse('checkout_success', args=[order.order_number])
                 )
         else:
-            messages.error(request, 'There was an error with your form. \
-                Please double check your information.')
+            messages.error(
+                request,
+                'There was an error with your form. '
+                'Please double check your information.'
+                )
+            client_secret = request.POST.get('client_secret', '')
 
     else:
         cart = request.session.get('cart', {})
         if not cart:
-            messages.error(request, "There's nothing in your shopping cart at the moment")
+            messages.error(
+                request, "There's nothing in your shopping cart at the moment"
+                )
             return redirect(reverse('gallery'))
         current_cart = cart_contents(request)
         grand_total = current_cart['grand_total']
@@ -100,9 +107,6 @@ def checkout(request):
             'Stripe public key is missing. Did you forget to set it?'
         )
 
-    if request.method == 'POST':
-        client_secret = request.POST.get('client_secret', '')
-
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
@@ -117,7 +121,6 @@ def checkout_success(request, order_number):
     """
      successful checkouts
     """
-    save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
 
     messages.success(request, f'Order successfully processed! \
