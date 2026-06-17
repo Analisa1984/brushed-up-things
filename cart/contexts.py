@@ -30,9 +30,11 @@ def cart_contents(request):
         })
 
     config = StoreConfiguration.objects.first()
-    threshold = config.free_shipping_threshold if config else Decimal('50.00')
-    percentage = (
-        config.standard_delivery_percentage if config else Decimal('10.00')
+    threshold = config.free_shipping_threshold if config else Decimal(
+        settings.FREE_DELIVERY_THRESHOLD
+        )
+    percentage = config.standard_delivery_percentage if config else Decimal(
+        settings.STANDARD_DELIVERY_PERCENTAGE
         )
 
     if total < threshold:

@@ -34,7 +34,7 @@ class OrderAdmin(admin.ModelAdmin):
     )
 
     # Automatically order them by newest first
-    ordering = ('date',)
+    ordering = ('-date',)
 
 
 admin.site.register(StoreConfiguration)

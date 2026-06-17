@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
@@ -71,9 +72,17 @@ class Order(models.Model):
         # this section of code will get the threshold for discount
         # as well as the discount percentage if admin changes it
         config = StoreConfiguration.objects.first()
-        threshold = config.free_shipping_threshold if config else 50.00
-        percentage = config.standard_delivery_percentage if config else 10.00
 
+        threshold = (
+            config.free_shipping_threshold if config else Decimal(
+                settings.FREE_DELIVERY_THRESHOLD
+                )
+            )
+        percentage = (
+            config.standard_delivery_percentage if config else Decimal(
+                settings.STANDARD_DELIVERY_PERCENTAGE
+                )
+        )
         # the shipping cost calculation
         if self.order_total < threshold:
             self.shipping_cost = self.order_total * (percentage / 100)
@@ -81,9 +90,12 @@ class Order(models.Model):
             self.shipping_cost = 0
 
         self.grand_total = self.order_total + self.shipping_cost
-        super().save(
-            update_fields=['order_total', 'shipping_cost', 'grand_total']
-            )
+
+        Order.objects.filter(pk=self.pk).update(
+            order_total=self.order_total,
+            shipping_cost=self.shipping_cost,
+            grand_total=self.grand_total
+        )
 
     def save(self, *args, **kwargs):
         """
