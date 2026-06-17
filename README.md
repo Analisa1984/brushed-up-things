@@ -114,6 +114,7 @@ Acceptance Criteria:
 
 
 ## Stripe Webhook Integration and Backend Architecture:
+![Stripe CLI Testing Logs](assets/images/webhook-images/webhook.png)
 
 To ensure total checkout reliability and prevent data loss from unexpected browser session drops (e.g., a user closing the window or losing internet connection mid-payment), a custom, decoupled two-tier webhook processing pipeline was implemented.
 
