@@ -188,7 +188,7 @@ STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 
-if 'USE_AWS' in os.environ or 'HEROKU_BUILD_START' in os.environ:
+if 'USE_AWS' in os.environ or os.environ.get('HOME') == '/app' or 'HEROKU_BUILD' in os.environ:
     AWS_STORAGE_BUCKET_NAME = 'brush-up-things-images'
     AWS_S3_REGION_NAME = 'us-east-1'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
