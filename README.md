@@ -7,6 +7,7 @@
 3. [User Stories & Acceptance Criteria ](#user-stories-and-acceptance-criteria)
 4. [Wireframes](#wireframes)
 5. [Entity Relationship Diagrams](#entity-relationship-diagrams)
+6. [Stripe Webhook Integration and Backend Architecture](#stripe-webhook-integration-and-backend-architecture)
 6. [Design and How to use the website](#design-and-how-to-use-the-website)
 7. [Agile Methodology Followed](#agile-methodology-followed)
 8. [Languages and Technologies used](#languages-and-technologies-used)
@@ -110,6 +111,25 @@ Acceptance Criteria:
 2. Physical Data Model (ERD):
 
     ![Physical Data Model](assets/images/erd-diagrams/physical-brushed-up-erd.png) 
+
+
+## Stripe Webhook Integration and Backend Architecture:
+
+To ensure total checkout reliability and prevent data loss from unexpected browser session drops (e.g., a user closing the window or losing internet connection mid-payment), a custom, decoupled two-tier webhook processing pipeline was implemented.
+
+Rather than handling both network validation and database logic inside a single monolithic view, the architecture separates responsibilities into two distinct processing files:
+
+1. **`webhooks.py` (The Secure Endpoint Receiver):** Acts as the direct HTTP POST endpoint listener (`/checkout/wh/`) for incoming traffic from Stripe. It utilizes Stripe's official Python SDK (`stripe.Webhook.construct_event`) to securely validate the cryptographic signature header (`HTTP_STRIPE_SIGNATURE`) against the locally stored `STRIPE_WH_SECRET`. This prevents unauthorized script or payload injections.
+   
+2. **`webhook_handler.py` (The Business Logic Engine):** A dedicated Python class designed to process validated Stripe payloads. Upon receiving a verified `payment_intent.succeeded` event, the handler queries the database to check if a matching order already exists (created by the frontend view). If no order is found—signaling a frontend session crash—the handler parses the metadata payload to programmatically construct and save the `Order` and `OrderLineItem` objects directly back to the database.
+
+---
+
+### Webhook Event Testing & Local Verification
+
+Because Stripe cannot directly communicate with a local development server (`localhost`), the **Stripe CLI** was deployed to securely listen to the Stripe Developer Dashboard account and forward incoming events to the local webhook endpoint.
+
+#### Verification Logs
 
 ## Languages and Technologies used:
 
