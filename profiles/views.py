@@ -42,7 +42,7 @@ def profile(request):
     else:
         form = UserProfileForm(instance=profile, user=request.user)
 
-    # Pull real transaction history from checkout app
+    # get real transaction history from checkout app
     orders = profile.orders.all()
 
     template = 'profiles/profile.html'
