@@ -167,7 +167,7 @@ def checkout_success(request, order_number):
 
     _send_confirmation_email(order)
 
-    # Delete the save_info flag as user clicked save
+    # Delete the save_info symbol as user clicked save
     if 'save_info' in request.session:
         del request.session['save_info']
 
@@ -201,5 +201,6 @@ def _send_confirmation_email(order):
         subject,
         body,
         settings.DEFAULT_FROM_EMAIL,
-        [customer_email]
+        [customer_email],
+        html_message=body
     )
