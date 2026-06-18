@@ -24,20 +24,7 @@ def checkout(request):
     if request.method == 'POST':
         cart = request.session.get('cart', {})
 
-        form_data = {
-            'first_name': request.POST.get('first_name'),
-            'last_name': request.POST.get('last_name'),
-            'email': request.POST.get('email'),
-            'phone_number': request.POST.get('phone_number'),
-            'country': request.POST.get('country'),
-            'post_code': request.POST.get('post_code'),
-            'town_or_city': request.POST.get('town_or_city'),
-            'street_address1': request.POST.get('street_address1'),
-            'street_address2': request.POST.get('street_address2'),
-            'county': request.POST.get('county'),
-        }
-
-        order_form = OrderForm(form_data)
+        order_form = OrderForm(request.POST)
         if order_form.is_valid():
             order = order_form.save(commit=False)
 
