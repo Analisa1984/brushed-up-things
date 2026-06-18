@@ -33,7 +33,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = [
-    '.herokuapp.com', '127.0.0.1',
+    os.environ.get('HEROKU_HOSTNAME'),
+    '127.0.0.1',
+    'localhost'
 ]
 
 
@@ -231,3 +233,5 @@ else:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
+
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
