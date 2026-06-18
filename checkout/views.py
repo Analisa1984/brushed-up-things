@@ -87,6 +87,14 @@ def checkout(request):
             current_cart = cart_contents(request)
             client_secret = request.POST.get('client_secret', '')
 
+            template = 'checkout/checkout.html'
+            context = {
+                'order_form': order_form,
+                'stripe_public_key': stripe_public_key,
+                'client_secret': client_secret,
+            }
+            return render(request, template, context)
+
     else:
         cart = request.session.get('cart', {})
         if not cart:
