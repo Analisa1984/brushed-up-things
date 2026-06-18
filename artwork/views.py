@@ -177,7 +177,7 @@ def contact_view(request):
                 "to the Brushed Up Things team. "
                 "We will get in touch soon!"
             )
-            return redirect('contact_view')
+            return redirect('contact')
     else:
         form = ContactForm()
 
