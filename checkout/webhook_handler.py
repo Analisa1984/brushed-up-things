@@ -27,7 +27,6 @@ class StripeWH_Handler:
         cart = intent.metadata.cart
         billing_details = intent.charges.data[0].billing_details
         shipping_details = intent.shipping
-        grand_total = round(intent.amount / 100, 2)
 
         # Clean shipping data fields to safely match database requirements
         for field, value in shipping_details.address.items():
@@ -61,7 +60,6 @@ class StripeWH_Handler:
                     street_address1__iexact=shipping_details.address.line1,
                     street_address2__iexact=shipping_details.address.line2,
                     county__iexact=shipping_details.address.state,
-                    grand_total=grand_total,
                 )
                 order_exists = True
                 break
@@ -71,9 +69,10 @@ class StripeWH_Handler:
 
         if order_exists:
             return HttpResponse(
-                content=f'Webhook received: {
-                    event["type"]
-                    } | SUCCESS: Verified order already in database',
+                content=(
+                    f'Webhook received: {event["type"]} | '
+                    'SUCCESS: Verified order already in database'
+                ),
                 status=200)
         else:
             order = None
@@ -109,9 +108,10 @@ class StripeWH_Handler:
                     status=500)
 
         return HttpResponse(
-            content=f'Webhook received: {
-                event["type"]
-                } | SUCCESS: Created order in webhook',
+            content=(
+                f'Webhook received: {event["type"]} | '
+                'SUCCESS: Created order in webhook'
+            ),
             status=200)
 
     def handle_payment_intent_payment_failed(self, event):
