@@ -11,6 +11,7 @@
             
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
+                <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 
                 <fieldset class="rounded px-3 mb-4">
                     <legend class="fieldset-label small text-black px-2 w-auto font-weight-bold">Delivery Details</legend>
