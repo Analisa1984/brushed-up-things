@@ -3,6 +3,7 @@ from .models import Artwork, Artist
 from profiles.forms import ArtistForm, ArtworkForm
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from django.db.models import Q
 
 
 # Create your views here.
@@ -25,6 +26,16 @@ def gallery(request):
     artworks = Artwork.objects.all()
     all_artists = Artist.objects.all().order_by('name')
 
+    # code to allow search bar to work
+    query = request.GET.get('q')
+    if query:
+        queries = (
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(medium__icontains=query)
+        )
+        artworks = artworks.filter(queries)
+
     # this code will get the requested items by the filter user wants
     selected_medium = request.GET.get('medium')
     selected_artist_id = request.GET.get('artist')
@@ -40,6 +51,7 @@ def gallery(request):
         'all_artists': all_artists,
         'current_medium': selected_medium,
         'current_artist': selected_artist_id,
+        'search_term': query,
         }
     return render(request, template, context)
 
