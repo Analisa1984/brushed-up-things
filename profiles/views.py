@@ -21,6 +21,7 @@ def staff_dashboard(request):
     context = {
         'artworks': artworks,
         'artists': artists,
+        'sold_count': artworks.filter(is_sold=True).count(),
     }
     return render(request, template, context)
 
