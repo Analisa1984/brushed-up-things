@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.db.models import Q
 from .forms import ContactForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 # Create your views here.
@@ -154,23 +156,42 @@ def delete_artwork(request, artwork_id):
 
 
 def contact_view(request):
-    """Displays the contact Us page"""
-    if request.method == 'POST':
+    """
+    Handle user contact submissions and send notifications to the admin.
+    """
+    if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
+
+            name = form.cleaned_data["name"]
+            email = form.cleaned_data["email"]
+            message_text = form.cleaned_data["message"]
+
+            subject = f"New Gallery Inquiry from {name}"
+            body = (
+                f"You received a new message regarding Brushed Up Things:\n\n"
+                f"From: {name} ({email})\n\n"
+                f"Message:\n{message_text}"
+            )
+
+            send_mail(
+                subject,
+                body,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.DEFAULT_FROM_EMAIL],
+            )
+
             messages.success(
                 request,
-                "Your message has been sent to Brushed "
-                "Up Things team successfully! "
-                "Someone will get back in touch soon!"
-                )
-            return redirect('contact')
+                "Thank you! Your message has been sent to the gallery.",
+            )
+            return redirect("contact")
     else:
-        # Once the user clicks on contact us the form will render
         form = ContactForm()
 
-    template = 'contact.html'
+    template = "artwork/contact.html"
     context = {
-        'form': form
+        "form": form
     }
+
     return render(request, template, context)
