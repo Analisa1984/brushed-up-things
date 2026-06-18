@@ -209,5 +209,43 @@ LOGIN_REDIORECT_URL = '/'
 7. Stripe Payments Integration
 
    **Stripe Developer Documentation** – Utilized for the foundational JavaScript SDK architecture, including base Element initialization, secure UI iframe generation, and asynchronous payment lifecycle confirmation.  
-  * *Source:* [Stripe Docs: Accept a Payment](https://stripe.com/docs/payments/accept-a-payment)
-* **Custom Django & jQuery Implementation** – Developed custom front-end logic to bridge the Django backend with the Stripe API. This includes using jQuery for dynamic DOM element selection, handling secure data-extraction and string sanitization via `.slice()`, and implementing defensive UI controls (disabling buttons and inputs) to prevent duplicate form submissions.
+   * *Source:* [Stripe Docs: Accept a Payment](https://stripe.com/docs/payments/accept-a-payment)
+   * **Custom Django & jQuery Implementation** – Developed custom front-end logic to bridge the Django backend with the Stripe API. This includes using jQuery for dynamic DOM element selection, handling secure data-extraction and string sanitization via `.slice()`, and implementing defensive UI controls (disabling buttons and inputs) to prevent duplicate form submissions.
+
+8. Models & Database Layer
+ - Django Models Baseline: Understanding fields, relationships, and options used to model the gallery artwork assets.
+   [Django Documentation - Models](https://docs.djangoproject.com/en/5.3/topics/db/models/)
+
+ - Model Fields Reference: Specific guide on fields utilized for creating transactional tracking tables, such as `CharField`, `DecimalField`, and automatic `DateTimeField`.
+   [Django Documentation - Model Field Types](https://docs.djangoproject.com/en/5.3/ref/models/fields/)
+
+ - Database Relationships: Guide on utilizing `ForeignKey` constraints with cascade rules (`on_delete=models.CASCADE` and `models.PROTECT`) to connect line items securely to parent transaction records.
+  [Django Documentation - Many-to-one relationships](https://docs.djangoproject.com/en/5.3/topics/db/examples/many_to_one/)
+
+9. Views & Business Logic
+ - Django View Layer Foundations: Structural design pattern for organizing HTTP request/response handling logic for processing checkouts and displaying details.
+   [Django Documentation - Writing Views](https://docs.djangoproject.com/en/5.3/topics/http/views/)
+
+ - URL Routing Configuration: Reference for constructing clean, consistent, cross-platform path structures linking named routes directly to views.
+   [Django Documentation - URL dispatcher](https://docs.djangoproject.com/en/5.3/topics/http/urls/)
+
+10. Forms & Data Validation
+
+ - Django Forms Framework: Baseline architecture used to initialize, validate, and process frontend user inputs safely before committing data to storage.
+   [Django Documentation - Working with Forms](https://docs.djangoproject.com/en/5.3/topics/forms/)
+
+ - ModelForms Customization:** Step-by-step guidance on constructing secure forms bound directly to database definitions to manage inventory adjustments.
+   [Django Documentation - Creating forms from models](https://docs.djangoproject.com/en/5.3/topics/forms/modelforms/)
+
+ 11. HTML Templates & Frontend Logic
+
+ - The Django Template Language: Official documentation covering layout inheritances via `{% extends %}` and dynamic section injections via `{% block %}` structures.
+   [Django Documentation - The Django Template Language](https://docs.djangoproject.com/en/5.3/topics/templates/)
+
+ - Built-in Template Tags and Filters: Usage reference for loop operations (`{% for %}`), control blocks (`{% if %}`), and static asset loading mechanics (`{% load static %}`).
+   [Django Documentation - Built-in Template Tags Reference](https://docs.djangoproject.com/en/5.3/ref/templates/builtins/)
+
+ 12. User Feedback & Session Messages
+
+ - The Django Messages Framework: Reference for storing system feedback and executing template looping logic to render temporary success notifications or validation errors cleanly on the front end.
+   [Django Documentation - The Messages Framework](https://docs.djangoproject.com/en/5.3/ref/contrib/messages/)
