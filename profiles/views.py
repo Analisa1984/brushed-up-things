@@ -65,8 +65,8 @@ def delete_profile(request):
             request,
             "Your account has been deleted. "
             "Our team at Brushed up Things is sorry to see you go. "
-            "If you have any feedback on how we can improve,"
-            " please don't hesitate to reach out. "
+            "If you have any feedback on how we can improve, "
+            "please don't hesitate to reach out. "
             "We hope to welcome you back in the future!"
         )
         return redirect('index')
@@ -80,9 +80,9 @@ def add_artist(request):
         form = ArtistForm(request.POST, request.FILES)
         if form.is_valid():
             artist = form.save()
-            messages.success(request, f'Successfully added artist: {
-                artist.name
-                }'
+            messages.success(
+                request,
+                f'Successfully added artist: {artist.name}'
                 )
             return redirect('staff_dashboard')
         else:
