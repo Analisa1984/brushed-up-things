@@ -83,23 +83,26 @@ Acceptance Criteria:
 
 ## Wireframes:
 
-1. Home Page for mobiles, tablets, laptops and PC:
-   ![Home Page Wireframe](assets/images/wireframe-screenshots/home.png)
+1. Home Page for mobiles and larger screens (tablets, laptops and PC):
+   ![Home Page Wireframe](assets/images/brushed-up-things-wireframes/home.png)
 
-2. Menu Page for mobiles, tablets, laptops and PC:
-   ![Menu Page Wireframe](assets/images/wireframe-screenshots/menu.png)
+2. Gallery Page for mobiles and larger screens (tablets, laptops and PC):
+   ![Menu Page Wireframe](assets/images/brushed-up-things-wireframes/gallery.png)
 
-3. Log In Page for mobiles, tablets, laptops and PC:
-   ![Log In Wireframe](assets/images/wireframe-screenshots/login.png)
+3. Log In Page for mobiles and larger screens (tablets, laptops and PC):
+   ![Log In Wireframe](assets/images/brushed-up-things-wireframes/login.png)
 
-4. Contact Us page for mobiles, tablets, laptops and PC:
-   ![Contact Us Page Wireframe](assets/images/wireframe-screenshots/contact-us.png)
+4. Contact Us page for mobiles and larger screens (tablets, laptops and PC):
+   ![Contact Us Page Wireframe](assets/images/brushed-up-things-wireframes/contact-us.png)
 
-5. Register page for mobiles, tablets, laptops and PC:
-   ![Register Page Wireframe](assets/images/wireframe-screenshots/create-account.png)
+5. Register page for mobiles and larger screens (tablets, laptops and PC):
+   ![Register Page Wireframe](assets/images/brushed-up-things-wireframes/signup.png)
 
-6. Bookings Page for mobiles, tablets, laptops and PC:
-   ![Bookings Page Wireframe](assets/images/wireframe-screenshots/booking.png)
+6. Order Page for mobiles and larger screens (tablets, laptops and PC):
+   ![Bookings Page Wireframe](assets/images/brushed-up-things-wireframes/order.png)
+
+7. Checkout Page for mobiles and larger screens (tablets, laptops and PC):
+   ![Bookings Page Wireframe](assets/images/brushed-up-things-wireframes/checkout.png)
 
 
 ## Entity Relationship Diagrams:
@@ -249,3 +252,16 @@ LOGIN_REDIORECT_URL = '/'
 
  - The Django Messages Framework: Reference for storing system feedback and executing template looping logic to render temporary success notifications or validation errors cleanly on the front end.
    [Django Documentation - The Messages Framework](https://docs.djangoproject.com/en/5.3/ref/contrib/messages/)
+### Database Querying & Filtering References
+
+#### 1. Handling HTTP GET Request Parameters
+* **The HttpRequest Object (`request.GET`):** Reference for using dictionary-like query dicts to fetch user parameters (the text value assigned to `'q'`) directly from the browser's incoming URL address bar.
+  * [Django Documentation - HttpRequest.GET QueryDicts](https://docs.djangoproject.com/en/5.3/ref/request-response/#django.http.HttpRequest.GET)
+
+#### 2. Advanced Multi-Field Database Filtering
+* **Complex Lookups with `Q` Objects:** Guidance on using `Q` objects to escape single-field limits. This architecture allows developers to combine database queries using logical OR operators (`|`) so a single search string can audit titles, descriptions, and mediums simultaneously.
+  * [Django Documentation - Complex Lookups with Q Objects](https://docs.djangoproject.com/en/5.3/topics/db/queries/#complex-lookups-with-q-objects)
+
+#### 3. Database Text Matching Constraints
+* **Case-Insensitive Containment Lookups (`__icontains`):** Reference detailing field lookup modifiers used to evaluate whether a text string exists anywhere within a database record field while ignoring uppercase/lowercase differences.
+  * [Django Documentation - Field Lookups: icontains](https://docs.djangoproject.com/en/5.3/ref/models/querysets/#icontains)
