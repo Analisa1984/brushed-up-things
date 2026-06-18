@@ -157,7 +157,7 @@ def delete_artwork(request, artwork_id):
 
 def contact_view(request):
     """
-    Handle user contact submissions and send notifications to the admin.
+    contact form with email.
     """
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -185,11 +185,11 @@ def contact_view(request):
                 request,
                 "Thank you! Your message has been sent to the gallery.",
             )
-            return redirect("contact")
+            return redirect("/contact/")
     else:
         form = ContactForm()
 
-    template = "artwork/contact.html"
+    template = "contact.html"
     context = {
         "form": form
     }
