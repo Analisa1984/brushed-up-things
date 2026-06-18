@@ -15,10 +15,14 @@ def add_to_cart(request, item_id):
     # this code makes sure a person cannot add more that one of the item
     # as each art piece is unique and singular
     if item_id in cart:
+        messages.info(
+            request, "This unique artwork is already in your shopping cart!"
+            )
         return redirect(reverse('gallery'))
 
     cart[item_id] = 1
     request.session['cart'] = cart
+    messages.success(request, "Artwork successfully added to your cart!")
     return redirect(reverse('gallery'))
 
 
@@ -29,11 +33,13 @@ def remove_from_cart(request, item_id):
 
         if item_id in cart:
             del cart[item_id]
+            messages.success(request, "Item removed from your cart.")
 
         request.session['cart'] = cart
         return redirect(reverse('shopping_cart'))
 
     except Exception as e:
+        messages.error(request, f"Error removing item: {e}")
         return redirect(reverse('shopping_cart'))
 
 
