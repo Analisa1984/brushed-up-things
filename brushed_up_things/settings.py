@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = [
-    os.environ.get('HEROKU_HOSTNAME'),
+    'brushed-up-things-ec9fbe0f6f98.herokuapp.com',
     '127.0.0.1',
     'localhost'
 ]
@@ -112,6 +112,7 @@ else:
         }
     }
 
+CSRF_TRUSTED_ORIGINS = ['https://*.codeinstitute-ide.net/', 'https://brushed-up-things-ec9fbe0f6f98.herokuapp.com/']
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
