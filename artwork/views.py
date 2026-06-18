@@ -177,7 +177,7 @@ def contact_view(request):
             send_mail(
                 subject,
                 body,
-                settings: EMAIL_HOST_USER,
+                settings.EMAIL_HOST_USER,
                 [settings.EMAIL_HOST_USER],
             )
 
