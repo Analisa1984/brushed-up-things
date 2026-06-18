@@ -29,18 +29,25 @@ def cart_contents(request):
             'artwork': artwork,
         })
 
-    config = StoreConfiguration.objects.first()
-    threshold = config.free_shipping_threshold if config else Decimal(
-        settings.FREE_DELIVERY_THRESHOLD
+    # Only query the database and
+    # calculate shipping if there are items in the cart
+    if total > 0:
+        config = StoreConfiguration.objects.first()
+        threshold = config.free_shipping_threshold if config else Decimal(
+            settings.FREE_DELIVERY_THRESHOLD
         )
-    percentage = config.standard_delivery_percentage if config else Decimal(
-        settings.STANDARD_DELIVERY_PERCENTAGE
-        )
+        if config:
+            percentage = config.standard_delivery_percentage
+        else:
+            percentage = Decimal(settings.STANDARD_DELIVERY_PERCENTAGE)
 
-    if total < threshold:
-        shipping_cost = total * (percentage / Decimal('100'))
+        if total < threshold:
+            shipping_cost = total * (percentage / Decimal('100'))
+        else:
+            shipping_cost = Decimal('0.00')
     else:
         shipping_cost = Decimal('0.00')
+    # --- OPTIMIZATION END ---
 
     grand_total = total + shipping_cost
 
