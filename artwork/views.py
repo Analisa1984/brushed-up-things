@@ -183,7 +183,9 @@ def contact_view(request):
 
             messages.success(
                 request,
-                "Thank you! Your message has been sent to the gallery.",
+                "Thank you! Your message has been sent "
+                "to the Brushed Up Things team. "
+                "We will get in touch soon!"
             )
             return redirect("/contact/")
     else:
