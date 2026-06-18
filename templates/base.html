@@ -134,10 +134,10 @@
             Medium
           </a>
           <ul class="dropdown-menu rounded-0 border-muted shadow-sm m-0">
-            <li><a class="dropdown-item py-2" href="#">Oil on Canvas</a></li>
-            <li><a class="dropdown-item py-2" href="#">Watercolors on Canvas</a></li>
-            <li><a class="dropdown-item py-2" href="#">Sculptures</a></li>
-            <li><a class="dropdown-item py-2" href="#">Drawings</a></li>
+            <li><a class="dropdown-item py-2" href="{% url 'gallery' %}?medium=oil">Oil on Canvas</a></li>
+            <li><a class="dropdown-item py-2" href="{% url 'gallery' %}?medium=watercolor">Watercolors on Canvas</a></li>
+            <li><a class="dropdown-item py-2" href="{% url 'gallery' %}?medium=sculpture">Sculptures</a></li>
+            <li><a class="dropdown-item py-2" href="{% url 'gallery' %}?medium=drawing">Drawings</a></li>
           </ul>
         </li>
         <li class="nav-item">
