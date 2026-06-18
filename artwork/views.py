@@ -4,6 +4,7 @@ from profiles.forms import ArtistForm, ArtworkForm
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.db.models import Q
+from .forms import ContactForm
 
 
 # Create your views here.
@@ -150,3 +151,26 @@ def delete_artwork(request, artwork_id):
         request, f'Successfully deleted "{artwork.title}" from inventory.'
         )
     return redirect('artwork_directory')
+
+
+def contact_view(request):
+    """Displays the contact Us page"""
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            messages.success(
+                request,
+                "Your message has been sent to Brushed "
+                "Up Things team successfully! "
+                "Someone will get back in touch soon!"
+                )
+            return redirect('contact')
+    else:
+        # Once the user clicks on contact us the form will render
+        form = ContactForm()
+
+    template = 'contact.html'
+    context = {
+        'form': form
+    }
+    return render(request, template, context)
