@@ -62,15 +62,18 @@ def edit_artist(request, artist_id):
         form = ArtistForm(request.POST, request.FILES, instance=artist)
         if form.is_valid():
             form.save()
+            messages.success(
+                request, f'Successfully updated artist: {artist.name}'
+                )
             return redirect('artist_directory')
-        else:
-            form = ArtistForm(instance=artist)
-        template = 'artwork/edit_artist.html'
-        context = {
-            'form': form,
-            'artist': artist,
-        }
-        return render(request, template, context)
+    else:
+        form = ArtistForm(instance=artist)
+    template = 'artwork/edit_artist.html'
+    context = {
+        'form': form,
+        'artist': artist,
+    }
+    return render(request, template, context)
 
 
 @user_passes_test(is_staff_check, login_url='index')
