@@ -19,8 +19,8 @@
 13. [CSS Validation Checks and Explanation of Results](#css-validation-checks)
 14. [Python Validation Checks and Explanation of Results](#python-validation-check)
 15. [Fixed](#fixed)
-16. [Manual Testing of the website](#manual-testing)
-17. [Responsiveness](#responsive-testing)
+16. [Manual Testing](#manual-testing)
+17. [Responsiveness](#responsiveness-testing)
 18. [Final Product](#final-product)
 19. [Mobile Screen Views](#mobile-screen-views)
 20. [Business Goals and User Stories met](#business-goals-and-user-stories-met)
@@ -208,6 +208,333 @@ From the sripe CLI testing
    [X](https://www.twitter.com)
 
 ------------------------------------------------------------------
+
+## Manual Testing
+
+NOTE: 
+Each part: 
+ - Header 
+ - Footer
+ - Main Pages (Not Logged In)
+ - Standard User Journey
+ - Staff User Journey (requires a Staff User account)
+
+Should be tested as one complete set of tests.
+
+## Header 
+
+### Logged Out
+| Action | Expected Result | Pass |
+| ------ | ------ | ----- |
+| Load URL | Index Page loads | Y |
+| Click About Us | About us Page Loads | Y |
+| Click Logo top right | Index page loads | Y |
+| Click Home | Index page loads | Y |
+| Click Gallery | Index page loads | Y |
+| Click Medium | Drop down menu appears | Y |
+| Click Oil and Canvas | Gallery with Oil and Canvas paints load | Y |
+| Click Oil and Canvas | Gallery with Water colours load | Y |
+| Click Oil and Canvas | Gallery with Sculptures load | Y |
+| Click Oil and Canvas | Gallery with Drawings load | Y |
+| Click Contact Us | contact us page loads | Y |
+| Type oil in the search menu | oil paints load | Y |
+| Click Shopping cart | shopping card loads with no items in | Y |
+| Click Login | login page loads | Y |
+
+### Logged In as standard user
+| Load URL | Index Page loads | Y |
+| Click My Account | My Account Page Loads | Y |
+| Click About us | about us page loads | Y |
+| Click Logo top right | Index page loads | Y |
+| Click Home | Index page loads | Y |
+| Click Gallery | Index page loads | Y |
+| Click Medium | Drop down menu appears | Y |
+| Click Oil and Canvas | Gallery with Oil and Canvas paints load | Y |
+| Click Oil and Canvas | Gallery with Water colours load | Y |
+| Click Oil and Canvas | Gallery with Sculptures load | Y |
+| Click Oil and Canvas | Gallery with Drawings load | Y |
+| Click Contact Us | contact us page loads | Y |
+| Type oil in the search menu | oil paints load | Y |
+| Click Shopping cart | shopping card loads with no items in | Y |
+| Click Logout | User Logged out | Y |
+
+### Logged in as staff user
+| Load URL | Index Page loads | Y |
+| Click My Account | My Account Page Loads | Y |
+| Click Logo top right | Index page loads | Y |
+| Click Home | Index page loads | Y |
+| Click About | about page loads | Y |
+| Click Gallery | Index page loads | Y |
+| Click Medium | Drop down menu appears | Y |
+| Click Oil and Canvas | Gallery with Oil and Canvas paints load | Y |
+| Click Oil and Canvas | Gallery with Water colours load | Y |
+| Click Oil and Canvas | Gallery with Sculptures load | Y |
+| Click Oil and Canvas | Gallery with Drawings load | Y |
+| Click Contact Us | contact us page loads | Y |
+| Type oil in the search menu | oil paints load | Y |
+| Click Shopping cart | shopping card loads with no items in | Y |
+| Click Logout | User Logged out | Y |
+
+## Footer (Same for all pages and User Types)
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Click Facebook Logo | Loads Facebook Home Page | Y |
+| Click Instagram Logo | Loads Instagram Page | Y |
+| Click X (Twitter Logo) | Loads X (Twitter Home Page) | Y |
+
+## Main Pages (Authentication not required)
+### Index:
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Note: If user is logged in message appears welcoming them | Y |
+| Click explore gallery collection | Gallery page loads | Y |
+| Click Meet our creators | creators page loads | Y |
+
+### About us: 
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Note text displays correctly no links on page | | Y |
+
+### Gallery
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Note: Page loads and filters to the left | | |
+| Choose a Painting and click add to cart | cart to right has a 1 against it | Y |
+| Choose another painting and click add to cart | car to the top right has a 2 against it | Y |
+| In medium click each option | any paintings with the relevent tag appears | Y |
+| Under artist click each artist name | only painting by that artist appear in the page | Y |
+| Click Cart | Order page appers (click back) | Y |
+
+### Contact Us
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Complete Name, an invalid email address press submit | request to put valid email address apears | Y |
+| Complete a vailid email address but leave message empty | request to add a message appears | Y |
+| Complete a full and valid form | for sends email | Y |
+
+## Standard User Journey
+### Signup
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Access the Site Unathenticated and from the login page (See Header Section) click Signup | Signup page loads | Y |
+| Leave the First name blank and click Sumbit | returns to the top of the page | Y |
+| Complete the first name leave the Last name blank and click submit | returns to the last name field | Y |
+| Complete the last name leave the Username blank and click Sumbit | Returns to the username field| Y |
+| Enter an invalid Email address (eg. no @ included) | Return to the email address field | Y |
+| Enter a valid address (Street2 & County are not required) other fields required | form moves on | Y | 
+| Complete last name so Username, Email, First Name and Last Name are all complete but password blank | Warning asking for password | Y |
+| Add a password and confirmation thats less than 8 Charaters | Error asking for a stronger password | Y |
+| Add a password with 9 numbers in the password & confirmation fields | Error showing password is entirely Numeric | Y |
+| Enter the Username in the password and confirmation fields | Error showing its two short | Y |
+| Enter the password & confirmation as `qwertyuiop` and click Sumbit | Error showing password is two common | Y |
+| Enter a password that is valid but something diffrent one in Confirmation then click Sumbit | Error showing the two fields dont match | Y |
+| Enter a valid passwrd but change email address with a previously used address eg. ana_lisa8@hotmail.com | warning will appear says its already registered | Y |
+| Enter a valid password and the same confirmation and click Create account | Logs user in, Messgage showing account created for username, Welcome email sent to registed email address. | Y |
+
+### Login
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Ensure you are logged out and click the login button top right | login form appears | Y |
+| Type an invalid username and password combination | login failed appears | Y |
+| Login with correct details and takes you to the home page with message | Y |
+
+# My Account
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Click edit on the personal & Shipping details | personal and shipping details become editable | Y |
+| edit something and click save | changes are reflected on the details page | Y |
+| Note order history has all previous orders included | | Y |
+
+### Checkout
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| From the gallery testing add a artwork to the card and click the cart icon | order page appears | Y |
+| Procced to the checkout button | checkout page appears | Y |
+| Check the address has appeared from the signup page | Y |
+| enter test card details from stripe | card should validate | Y |
+| Click adjust bag | returns you to order details page | Y |
+| click complete order | order confirmation screen and email appears | Y |
+Note: test stripe card details are here: https://docs.stripe.com/testing?locale=en-GB
+
+### Order confirmation
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Note order confirmation number appears | | Y |
+| Note order details match the order created | | Y |
+| Click back to gallery | gallery page appers | Y |
+
+## Staff User Journey
+### Login
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Ensure you are logged out and click the login button top right | login form appears | Y |
+| Type an invalid username and password combination | login failed appears | Y |
+| Login with correct details and takes you to the home page with message | Y |
+
+# My Account
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Click edit on the personal & Shipping details | personal and shipping details become editable | Y |
+| edit something and click save | changes are reflected on the details page | Y |
+| Click Access Master Control Dashboard | staff portal page loads | Y |
+| Click Add new art pieces to gallery | form to add new artwork appears | Y |
+| Click add new artist Profiles | new artist profile appears | Y |
+| Note order history has all previous orders included | | Y |
+
+
+### Checkout
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| From the gallery testing add a artwork to the card and click the cart icon | order page appears | Y |
+| Procced to the checkout button | checkout page appears | Y |
+| Check the address has appeared from the signup page | Y |
+| enter test card details from stripe | card should validate | Y |
+| Click adjust bag | returns you to order details page | Y |
+| click complete order | order confirmation screen and email appears | Y |
+Note: test stripe card details are here: https://docs.stripe.com/testing?locale=en-GB
+
+### Order confirmation
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Note order confirmation number appears | | Y |
+| Note order details match the order created | | Y |
+| Click back to gallery | gallery page appers | Y |
+
+### Dashboard
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Login as a staff member and click staff portal | | |
+| Click Add Artist top right | Add artist appears | Y |
+| fill in details about a new artist ensure a name is included | new artist is added to the DB | Y |
+| Note Total artists has increased by 1 | | Y |
+| go to edit artist | artist details appear | | Y |
+| Edit details for your new artist | updates details for artist | Y |
+| Click delete for your new artist | confirmation box to delete artist, artist deleted when confirmed | Y |
+| Click add artwork | Add artwork appears page appears | Y |
+| Click back | return to the staff portal | Y |
+| Click edit next to an artwork | loads change artwork page | Y |
+| Change a value of an item and click save | detail is updated on the gallery page | Y |
+
+### add artwork
+From the staff portal click add artwork
+
+| Action | Expected Result | Pass |
+| ----- | ----- | ----- |
+| Select the dropdown of artists | pick a chosen artist box populates | Y |
+| Add a title & Descrption | boxes complete | Y |
+| Choose a medium from the dropdown | chosen option is added to the box | Y |
+| Add a price | then select an image | Y |
+| Click choose an image | choose a image from file browser and confirm | image uploads to S3 | Y |
+| Click confirm | artwork appears in the list | Y |
+
+-----------------------------------------------------------------------------------------------
+
+## Responsiveness Testing
+### Header
+| Device | Desired view |
+| ----- | ----- | 
+| Desktop | All menu options display with logo to the left and card / Login on the right |
+| Smaller Devices | the middle row drops to a burger button to save space |
+
+### Footer
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | the three sections appear across the page |
+| Mobile | the three sections now are on top of each other |
+
+### Index
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | All text centralised with artists 4 wide across the page |
+| Smaller Devices | All text centralised with smaller boarders with artists two wide across the page |
+| Smaller Devices | all text remains in the boxes and buttons that were created |
+
+### About us 
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | All text centralised |
+| Smaller Devices | Text remains central with smaller boarders |
+
+### Gallery
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Filters appear to the left hand side with all availible options to the right artworks appear in cards |
+| Smaller Devices | Filters drop to a button at the top to save space artworks drop to 1 wide a page |
+
+### Contact Us
+| Device | Desired view |
+| ----- | ----- |
+| Desktop | wider boards but all boxes clear on screen |
+| Smaller devices | smaller boards to give room for text boxes in form |
+
+### Login
+| Device | Desired view |
+| ----- | ----- | 
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+### Signup
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+### My Account and Edit buttons
+| Device | Desired view | 
+| ----- | ----- |
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+### Shopping Cart page
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Items in the order are showen with pics to the left, Cost and total to the right |
+| Smaller Devices | Items appear 1 wide with order summary below |
+
+### Checkout Page
+| Device | Desired view | 
+| ----- | ----- |
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+### Order confirmation
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+### Staff Portal
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Summary goes across the screen and the Inventory shows all the way across |
+| smaller devices | the summary goes on top of each other and the Inventory scrolls across. |
+
+### Add Artwork
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+### Edit Artists
+| Device | Desired view | 
+| ----- | ----- |
+| Desktop | Artists appear in cards 3 wide across the screen |
+| Smaller Devices | Artists appear in two then 1 wide across the screen |
+
+### Editing an artist 
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+### Edit artwork
+| Device | Desired view | 
+| ----- | ----- | 
+| Desktop | Login box is smaller in the middle of the screen |
+| Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
+
+------------------------------------------------------------------------------------------
+
 ## Deployment
 
 

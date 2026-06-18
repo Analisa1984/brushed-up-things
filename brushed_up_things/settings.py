@@ -190,6 +190,8 @@ else:
     EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
     DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
 
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', DEFAULT_FROM_EMAIL)    
+
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_ON_GET = True
@@ -240,7 +242,6 @@ if "USE_AWS" in os.environ:
         },
     }
 
-    STATIC_ROOT = BASE_DIR / "staticfiles"
 else:
     STATIC_URL = "/static/"
     MEDIA_URL = "/media/"
