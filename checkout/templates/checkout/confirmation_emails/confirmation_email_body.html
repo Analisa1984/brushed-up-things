@@ -1,0 +1,46 @@
+<h3>Order Confirmation — Brushed Up Things</h3>
+<p>Thank you for your purchase, <strong>{{ order.first_name }} {{ order.last_name }}</strong>!</p>
+
+<h4>Shipping Address</h4>
+<p>
+    {{ order.street_address1 }}<br>
+    {% if order.street_address2 %}{{ order.street_address2 }}<br>{% endif %}
+    {{ order.town_or_city }}<br>
+    {% if order.county %}{{ order.county }}<br>{% endif %}
+    {{ order.post_code }}<br>
+    {{ order.country.name }}
+</p>
+
+<h4>Order Summary</h4>
+<table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+    <thead>
+        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; text-align: left;">
+            <th style="padding: 8px;">Item Name</th>
+            <th style="padding: 8px; text-align: center;">Qty</th>
+            <th style="padding: 8px; text-align: right;">Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order.lineitems.all %}
+        <tr style="border-bottom: 1px solid #dee2e6;">
+            <td style="padding: 8px;">
+                "{{ item.artwork.title }}" by {{ item.artwork.artist.name }}
+            </td>
+            <td style="padding: 8px; text-align: center;">{{ item.quantity }}</td>
+            <td style="padding: 8px; text-align: right;">£{{ item.lineitem_total }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2" style="padding: 8px; text-align: right;"><strong>Item Total:</strong></td>
+            <td style="padding: 8px; text-align: right;">£{{ order.order_total }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 8px; text-align: right;"><strong>Shipping Cost:</strong></td>
+            <td style="padding: 8px; text-align: right;">£{{ order.shipping_cost }}</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+            <td colspan="2" style="padding: 8px; text-align: right;"><strong>Grand Total:</strong></td>
+            <td style="padding: 8px; text-align: right;"><strong>£{{ order.grand_total }}</strong></td>
+        </tr>
+    </tbody>
+</table>

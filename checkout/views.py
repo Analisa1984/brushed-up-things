@@ -8,6 +8,8 @@ from .models import Order, OrderLineItem
 from artwork.models import Artwork
 from profiles.models import UserProfile
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 @login_required
@@ -163,6 +165,8 @@ def checkout_success(request, order_number):
         f'A confirmation email will be sent to {order.email}.'
         )
 
+    _send_confirmation_email(order)
+
     # Delete the save_info flag as user clicked save
     if 'save_info' in request.session:
         del request.session['save_info']
@@ -173,3 +177,29 @@ def checkout_success(request, order_number):
     }
 
     return render(request, template, context)
+
+
+# send confirmation email after checkout
+def _send_confirmation_email(order):
+    """
+    Customer sent a confirmation email after checkout completed
+    """
+    customer_email = order.email
+
+    subject = render_to_string(
+        'checkout/confirmation_emails/confirmation_email_subject.txt',
+        {'order': order}
+    ).strip()
+
+    body = render_to_string(
+        'checkout/confirmation_emails/confirmation_email_body.html',
+        {'order': order}
+    )
+
+    # send the email off via SMTP (Gmail)
+    send_mail(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        [customer_email]
+    )
