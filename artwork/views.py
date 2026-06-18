@@ -177,8 +177,8 @@ def contact_view(request):
             send_mail(
                 subject,
                 body,
-                settings.DEFAULT_FROM_EMAIL,
-                [settings.DEFAULT_FROM_EMAIL],
+                settings: EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
             )
 
             messages.success(
