@@ -27,7 +27,15 @@ def gallery(request):
     all_artists = Artist.objects.all().order_by('name')
 
     # code to allow search bar to work
+    selected_medium = request.GET.get('medium')
+    selected_artist_id = request.GET.get('artist')
     query = request.GET.get('q')
+
+    if selected_medium:
+        artworks = artworks.filter(medium__icontains=selected_medium)
+    if selected_artist_id:
+        artworks = artworks.filter(artist_id=selected_artist_id)
+
     if query:
         queries = (
             Q(title__icontains=query) |
