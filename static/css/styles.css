@@ -33,9 +33,7 @@ h1, h2, h3, .navbar-brand, .blockquote p {
     letter-spacing: -0.01em;
 }
 
-/* ==========================================================================
-   3. NAVIGATION & FOOTER CUSTOM REFINEMENTS
-   ========================================================================== */
+/*  NAVIGATION & FOOTER CUSTOM REFINEMENTS */
 .navbar {
     background-color: var(--gallery-bg) !important;
     padding-top: 1.25rem;
@@ -65,9 +63,7 @@ footer {
     border-top: 1px solid var(--gallery-border) !important;
 }
 
-/* ==========================================================================
-   4. HERO & CAROUSEL COMPONENT ELEVATIONS
-   ========================================================================== */
+/* HERO & CAROUSEL COMPONENT ELEVATIONS */
 .gallery-hero {
     background-color: var(--card-surface) !important;
     border: 1px solid var(--gallery-border) !important;
@@ -85,9 +81,7 @@ footer {
     color: #f7f4ee;
 }
 
-/* ==========================================================================
-   5. ARTIST GRID COMPONENT DECORATORS
-   ========================================================================== */
+/* ARTIST GRID COMPONENT DECORATORS */
 .section-divider {
     border-color: var(--gallery-accent) !important;
     opacity: 0.3;
