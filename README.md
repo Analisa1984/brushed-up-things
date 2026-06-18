@@ -7,6 +7,7 @@
 3. [User Stories & Acceptance Criteria ](#user-stories-and-acceptance-criteria)
 4. [Wireframes](#wireframes)
 5. [Entity Relationship Diagrams](#entity-relationship-diagrams)
+5. [Core E-Commerce, Checkout and Email Architechture](#core-e-commerce-checkout-and-email-architechture)
 6. [Stripe Webhook Integration and Backend Architecture](#stripe-webhook-integration-and-backend-architecture)
 6. [Design and How to use the website](#design-and-how-to-use-the-website)
 7. [Agile Methodology Followed](#agile-methodology-followed)
@@ -87,7 +88,7 @@ Acceptance Criteria:
    ![Home Page Wireframe](assets/images/brushed-up-things-wireframes/home.png)
 
 2. Gallery Page for mobiles and larger screens (tablets, laptops and PC):
-   ![Menu Page Wireframe](assets/images/brushed-up-things-wireframes/gallery.png)
+   ![Gallery Page Wireframe](assets/images/brushed-up-things-wireframes/gallery.png)
 
 3. Log In Page for mobiles and larger screens (tablets, laptops and PC):
    ![Log In Wireframe](assets/images/brushed-up-things-wireframes/login.png)
@@ -99,11 +100,12 @@ Acceptance Criteria:
    ![Register Page Wireframe](assets/images/brushed-up-things-wireframes/signup.png)
 
 6. Order Page for mobiles and larger screens (tablets, laptops and PC):
-   ![Bookings Page Wireframe](assets/images/brushed-up-things-wireframes/order.png)
+   ![Order Page Wireframe](assets/images/brushed-up-things-wireframes/order.png)
 
 7. Checkout Page for mobiles and larger screens (tablets, laptops and PC):
-   ![Bookings Page Wireframe](assets/images/brushed-up-things-wireframes/checkout.png)
+   ![Checkout Page Wireframe](assets/images/brushed-up-things-wireframes/checkout.png)
 
+---------------------------------------------------------------
 
 ## Entity Relationship Diagrams:
 
@@ -113,8 +115,40 @@ Acceptance Criteria:
 
 2. Physical Data Model (ERD):
 
-    ![Physical Data Model](assets/images/erd-diagrams/physical-brushed-up-erd.png) 
+    ![Physical Data Model](assets/images/erd-diagrams/physical-brushed-up-erd.png)
 
+----------------------------------------------------------------
+
+## Core E-Commerce, Checkout & Email Architecture
+
+### 1. Design Rationale & User Control
+The checkout infrastructure for "Brushed Up Things" is engineered to provide an elegant, secure, and transparent purchasing experience for art collectors. Every phase of the transaction pipeline prioritizes immediate user feedback and defensive application design:
+
+* **Preventing Duplicate Transactions:** To eliminate common e-commerce friction points—such as accidental double-clicks causing multiple card charges—the frontend checkout architecture uses custom JavaScript (`stripe_elements.js`). The exact millisecond a user clicks the submission action, both the input fields and the submit button are programmatically disabled. 
+* **State Control:** The system halts standard browser dispatch, securely hands processing control over to Stripe's remote servers to authorize the funds, and only triggers the final database save upon a verified success state.
+
+### 2. Relational Database Schema & Architecture
+Rather than processing purchases as flat data entries, the application implements a robust, relational database schema designed to preserve data integrity and prevent record duplication. The data framework relies on three interconnected custom components:
+
+* **Store Configuration Model (`StoreConfiguration`):** A centralized administrative hub that allows gallery managers to dynamically alter shipping percentages or free-delivery thresholds via the Django Admin panel. By avoiding hardcoded metrics, operational business rules remain isolated from the core code.
+* **Order Model (`Order`):** Acts as the parent container tracking a single transaction. It captures essential delivery metrics, timestamps, and country flags. Upon creation, it runs a private method leveraging Python's `uuid` library to stamp each record with a permanent, alphanumeric tracking reference. It also optionally maps the purchase to an authenticated `UserProfile`.
+* **Order Line Item Model (`OrderLineItem`):** A dedicated bridge table establishing a Many-to-One relationship with the parent order. Because a collector might buy multiple distinct artworks in a single session, this model isolates each separate item, tracks the requested quantity, and handles individual pricing metrics.
+
+### 3. Automated Backend Calculations
+To enforce data integrity, all financial values and operational rules are evaluated directly on the server database layer through custom model methods, rather than trusting manipulation-prone frontend client scripts:
+
+* **Line Item Totals:** On saving an `OrderLineItem`, the model hooks into the foreign key relationship to fetch the static price of the linked `Artwork`, multiplies it by the selected quantity, and updates its `lineitem_total`.
+* **Aggregated Order Totals:** Saving a line item automatically signals the parent `Order` to trigger its internal `update_total` method. The system aggregates all connected line items using Django's `Sum` tool. It then queries the active `StoreConfiguration` model, compares the cumulative value against the active free-delivery threshold, applies the standard shipping percentage if applicable, and updates the database row with a definitive `grand_total`.
+
+### 4. Transactional Automated Notification Pipeline
+Communication is an integral extension of the user experience. Once the application processes a checkout success route, a private backend notification routine (`_send_confirmation_email`) executes instantly to reassure the customer.
+
+* **Decoupled Messaging Layouts:** The notification system strictly separates messaging concerns. The email subject line is handled by an isolated text document (`confirmation_email_subject.txt`), dynamically interpolating the transaction's unique ID. The message interior utilizes an advanced HTML template (`confirmation_email_body.html`) that loops through the purchase line items to deliver an explicit, transparent breakdown of the collector's summary.
+* **Dual-Environment Routing Strategy:** To ensure development safety and ease of maintenance, the email architecture uses a conditional environmental split:
+  1. **Development Routing (Console Backend):** When the application detects a local development environment flag, Django routes the message via `django.core.mail.backends.console.EmailBackend`. This intercepts the notification and prints the raw layout directly to the local terminal server logs for safe debugging and structural review.
+  2. **Production Routing (Live SMTP Backend):** In a live production deployment, the architecture switches dynamically to `django.core.mail.backends.smtp.EmailBackend`. It authenticates securely with external Google SMTP mail nodes using TLS cryptographic protocols and protected environment variables (`EMAIL_HOST_USER` and `EMAIL_HOST_PASS`) to send an email right to the buyer's inbox.
+
+---------------------------------------------------------------------
 
 ## Stripe Webhook Integration and Backend Architecture:
 ![Stripe CLI Testing Logs](assets/images/webhook-images/webhook.png)
@@ -127,13 +161,17 @@ Rather than handling both network validation and database logic inside a single 
    
 2. **`webhook_handler.py` (The Business Logic Engine):** A dedicated Python class designed to process validated Stripe payloads. Upon receiving a verified `payment_intent.succeeded` event, the handler queries the database to check if a matching order already exists (created by the frontend view). If no order is found—signaling a frontend session crash—the handler parses the metadata payload to programmatically construct and save the `Order` and `OrderLineItem` objects directly back to the database.
 
----
+--------------------------------------------------------------
 
 ### Webhook Event Testing & Local Verification
 
 Because Stripe cannot directly communicate with a local development server (`localhost`), the **Stripe CLI** was deployed to securely listen to the Stripe Developer Dashboard account and forward incoming events to the local webhook endpoint.
 
 #### Verification Logs
+From the sripe CLI testing
+  ![Stripe CLI Test](assets/images/webhook-images/webhook.png)
+
+---------------------------------------------------------------
 
 ## Languages and Technologies used:
 
@@ -154,6 +192,8 @@ Because Stripe cannot directly communicate with a local development server (`loc
 15. Figma software was used to create the wireframes.
 16. draw.io for Entity Relationship Diagrams (ERD).
 
+----------------------------------------------------------------
+
 ## Links used:
 
 - External links include the social media links below:
@@ -167,6 +207,65 @@ Because Stripe cannot directly communicate with a local development server (`loc
 3. X (formerly known as Twitter):
    [X](https://www.twitter.com)
 
+------------------------------------------------------------------
+## Deployment
+
+
+### Database
+The database is hosted on AWS
+
+#### To create the database:
+- Login to AWS as a root user or IAM with enough privileges to Use Auroa / RDS and Security Groups
+- In the search bar find RDS
+- Click Create with full configuration
+- Choose PostgressSQL
+- Set the database server size (small in this case)
+- Give the database a name that identifies it clearly.
+- Set the Master Username and a Self Managed password 
+- Enter a strong password (eg. 32 Charaters)
+- Set Public access to yes as it will be accessible by Heroku
+- Use a Default security group as its the first resource were creating
+- Minimise Monitoring and backups to save on cost as this is a demo project
+- Choose Create Database
+
+#### Setup the security group
+- As the database is creating at the bottom of the screen choose the default inbound security group 
+- Choose the Security Group ID
+- Click edit inbound rules
+- Add a rule with
+    Type: PostgresSQL
+    Source: Custom and 0.0.0.0/0 as we dont know Heroku's puiblic IP
+
+#### Go Back to RDS (From the Search Box)
+- Choose Databases from the left menu 
+- click into the new database that was created
+- Under Code Sinippets change the Programming language to Python and copy the details to the env.py file to form the URI for Django.
+
+### Setting up AWS S3
+To allow for uploading images AWS S3 is setup to handle all static content setting up S3:
+- Login to AWS using a root user or an IAM account with S3 permissons
+- Create a new bucket and allow public read access. 
+- To allow Django to upload & manage files create a policy that allows edit access to that bucket. 
+- Create a user attach the policy to edit files in the bucket
+- get the AWS region, Bucket name, AWS Secret key and AWS Key ID and add them to Heroku
+
+### Application
+Make sure gunicorn is in the project requirements and the code is upto date in github.
+
+Login to Heroku
+Create the application
+- In Deploy link to the github repo for the project: brushed-up-things
+- Click Setup and in config vars add:
+    - Database credentials = (the full URL from AWS incluing username & password)
+    - A Unique secret key for the project
+    - EMAIL_HOST_PASSWORD = (Email service password)
+    - EMAIL_HOST_USER = (Email service username)
+    - AWS secret keys
+    - Stripe secret keys & webhook
+- Go back to deploy and click the deploy button to deploy the application.
+- Confirm gunicorn is running in the resources tab.
+
+----------------------------------------------------------
 
 ## Bug Fixes:
 
@@ -199,8 +298,9 @@ Because Stripe cannot directly communicate with a local development server (`loc
 - The Root Cause: This occurred because Django-Allauth automatically routes users to a default internal fallback path (/accounts/profile/) after authentication if no other instruction is given. Because the custom profile dashboard in this project is explicitly mapped to /profile/ instead, Django's URL configuration could not find a matching route for the default path.
 
 - The Fix: The brushed_up_things/settings.py file was updated to include an explicit redirect override. The LOGIN_REDIRECT_URL variable was added to the Allauth configuration block and set to target the named 'profile' route:
-LOGIN_REDIORECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
+-----------------------------------------------------
 
 ## References: 
 1. Unsplash Royalty Free Images - Mayur Deshpande
