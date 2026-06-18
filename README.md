@@ -140,8 +140,7 @@ Because Stripe cannot directly communicate with a local development server (`loc
 4. Python 
 5. Django framework 
 6. Bootstrap version 5.3.3 Library - for navigation bar, footer and other body elements and class implementation for styling .
-7. Font Awesome library for icons
-8. Bootstrap5 icon library for icons
+7. Bootstrap5 icon library for icons
 8. Google Fonts to import additional fonts
 9. Artificial Intelligence Technologies (Gemini) was used to create Brushed Up Things Logo, the favicons of various sizes as well as art pieces for all the sculptures and all the oil paintings.
 10. Chrome developer tools, Inspector, to get screenshots of the product webpage on various sized devices.
