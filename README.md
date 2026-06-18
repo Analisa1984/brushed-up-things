@@ -197,7 +197,7 @@ Because Stripe cannot directly communicate with a local development server (`loc
 - The Root Cause: This occurred because Django-Allauth automatically routes users to a default internal fallback path (/accounts/profile/) after authentication if no other instruction is given. Because the custom profile dashboard in this project is explicitly mapped to /profile/ instead, Django's URL configuration could not find a matching route for the default path.
 
 - The Fix: The brushed_up_things/settings.py file was updated to include an explicit redirect override. The LOGIN_REDIRECT_URL variable was added to the Allauth configuration block and set to target the named 'profile' route:
-LOGIN_REDIORECT_URL = 'profile'
+LOGIN_REDIORECT_URL = '/'
 
 
 ## References: 
