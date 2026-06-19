@@ -1,12 +1,41 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
+from artwork.models import Artwork
 
 
 # Create your views here.
 def shopping_cart(request):
     """this function will render the shopping bag contents page"""
+    cart = request.session.get('cart', {})
+    cart_contents = []
+    cart_has_sold_items = False
+
+    # Loop through the item IDs currently sitting in the session cart
+    for item_id in cart.keys():
+        try:
+            artwork = Artwork.objects.get(id=item_id)
+
+            # If it was sold while sitting in their cart, attach custom message
+            if artwork.is_sold:
+                artwork.unavailable_message = (
+                    f"'{artwork.title}' was just sold "
+                    f"and is no longer available!"
+                )
+                cart_has_sold_items = True
+            cart_contents.append({
+                'item_id': item_id,
+                'artwork': artwork,
+            })
+        except Artwork.DoesNotExist:
+            continue
+
+    context = {
+        'cart_items': cart_contents,
+        'cart_has_sold_items': cart_has_sold_items,
+    }
+
     template = 'cart/shopping_cart.html'
-    return render(request, template)
+    return render(request, template, context)
 
 
 def add_to_cart(request, item_id):

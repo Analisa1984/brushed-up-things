@@ -23,6 +23,13 @@
                             <div class="col-md-7 ps-3">
                                 <h5 class="card-title mb-1 fw-bold">{{ item.artwork.title }}</h5>
                                 <p class="card-text text-muted mb-0">By: {{ item.artwork.artist.name }}</p>
+                                
+                                {% if item.artwork.unavailable_message %}
+                                    <div class="alert alert-danger mt-2 py-2 mb-0" role="alert">
+                                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                        <strong>{{ item.artwork.unavailable_message }}</strong>
+                                    </div>
+                                {% endif %}
                             </div>
                             
                             <div class="col-md-3 text-end">
@@ -69,10 +76,18 @@
                         <strong class="text-dark">£{{ grand_total|floatformat:2 }}</strong>
                     </div>
                     
-                    <a href="{% url 'checkout' %}" class="btn btn-dark w-100 py-2 fw-bold">
-                        Secure Checkout <i class="bi bi-lock-fill ms-1 small"></i>
-                    </a>
-                    
+                    {% if cart_has_sold_items %}
+                        <button class="btn btn-secondary w-100 py-2 fw-bold" disabled style="cursor: not-allowed;">
+                            Checkout Unavailable <i class="bi bi-exclamation-circle-fill ms-1 small"></i>
+                        </button>
+                        <small class="text-danger text-center d-block mt-2 fw-bold">
+                            Please remove sold out items to proceed.
+                        </small>
+                    {% else %}
+                        <a href="{% url 'checkout' %}" class="btn btn-dark w-100 py-2 fw-bold">
+                            Secure Checkout <i class="bi bi-lock-fill ms-1 small"></i>
+                        </a>
+                    {% endif %}
                     <a href="{% url 'clear_cart' %}"
                        class="btn btn-outline-danger w-100 mt-2 delete-btn py-2"
                        data-name="everything in your shopping cart">
