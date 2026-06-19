@@ -237,6 +237,18 @@ From the sripe CLI testing
 
 ## Agile Methodology Followed
 
+![userstoreies](assets/images/project-board/userstories-moscow.png)
+![project board1](assets/images/project-board/project-board1.png)
+![project board2](assets/images/project-board/project-board-2.png)
+![project board3](assets/images/project-board/project-board3.png)
+![project board4](assets/images/project-board/project-board4.png)
+![project board5](assets/images/project-board/project-board5.png)
+![project board6](assets/images/project-board/project-board6.png)
+![project board7](assets/images/project-board/project-board7.png)
+![project board8](assets/images/project-board/project-board8.png)
+![project board9](assets/images/project-board/project-board9.png)
+
+
 This project was developed using Agile practices. Breaking the work down into smaller tasks made it easier to manage the project development.
 
 ### 1. Project Management Tool
