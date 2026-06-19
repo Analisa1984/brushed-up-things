@@ -4,11 +4,11 @@
 
 <div class="container mt-5">
     
-    <div class="row mb-2">
+    <header class="row mb-2">
         <div class="col-12">
             <h1 class="fw-bold text-dark mb-0 fs-2">The Gallery</h1>
         </div>
-    </div>
+    </header>
     
    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
         <div>
@@ -31,19 +31,19 @@
 
     <div class="row">
         
-        <div class="col-lg-3 offcanvas-lg offcanvas-start border-end bg-body-tertiary" role="complementary" tabindex="-1" id="filterSidebar" aria-labelledby="filterSidebarLabel">
+        <aside class="col-lg-3 offcanvas-lg offcanvas-start border-end bg-body-tertiary" role="complementary" tabindex="-1" id="filterSidebar" aria-labelledby="filterSidebarLabel">
             
             <div class="offcanvas-header border-bottom d-lg-none">
-                <h5 class="offcanvas-title fw-bold" id="filterSidebarLabel">Filter Collection</h5>
+                <h2 class="offcanvas-title fw-bold h5" id="filterSidebarLabel">Filter Collection</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#filterSidebar" aria-label="Close"></button>
             </div>
             
             <div class="offcanvas-body p-3 p-lg-0 pe-lg-4 my-lg-2">
                 <div class="w-100">
-                    <h5 class="fw-bold text-dark mb-3 d-none d-lg-block">Refine By</h5>
+                    <h2 class="fw-bold text-dark mb-3 d-none d-lg-block h5">Refine By</h2>
                     
                     <div class="mb-4">
-                        <h6 class="fw-bold text-secondary text-uppercase small tracking-wider mb-2">Medium</h6>
+                        <h3 class="fw-bold text-secondary text-uppercase small tracking-wider mb-2 h6">Medium</h3>
                         <div class="list-group list-group-flush rounded-3 border">
                             <a href="{% url 'gallery' %}" class="list-group-item list-group-item-action {% if not current_medium %}active bg-dark border-dark{% endif %}">
                                 All Mediums
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <h6 class="fw-bold text-secondary text-uppercase small tracking-wider mb-2">Artists</h6>
+                        <h3 class="fw-bold text-secondary text-uppercase small tracking-wider mb-2 h6">Artists</h3>
                         <div class="list-group list-group-flush rounded-3 border">
                             <a href="{% url 'gallery' %}" class="list-group-item list-group-item-action {% if not current_artist %}active bg-dark border-dark{% endif %}">
                                 All Artists
@@ -80,9 +80,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
 
-        <div class="col-lg-9">
+        <section class="col-lg-9" aria-label="Artwork Catalog Collection">
             <div class="row">
                 {% for artwork in artworks %}
                     <div class="col-md-6 col-xl-4 mb-4 d-flex align-items-stretch">
@@ -95,7 +95,7 @@
                                     </div>
                                 {% endif %}
                             <div class="card-body d-flex flex-column justify-content-between">
-                                <h5 class="card-title fw-bold text-dark mb-1">{{ artwork.title }}</h5>
+                                <h2 class="card-title fw-bold text-dark mb-1 h5">{{ artwork.title }}</h2>
                                 <p class="card-text text-muted small mb-2">By: {{ artwork.artist }}</p>
                                 <p class="card-text text-secondary">{{ artwork.description|truncatechars:100 }}</p>
                                 <p class="card-text mb-0"><span class="badge bg-light text-dark border">Medium: {{ artwork.medium }}</span></p>
@@ -118,7 +118,7 @@
                     </div>
                 {% endfor %}
             </div>
-        </div>
+        </section>
 
     </div>
 </div>
