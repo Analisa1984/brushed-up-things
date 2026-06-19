@@ -19,6 +19,7 @@
 13. [CSS Validation Checks and Explanation of Results](#css-validation-checks)
 14. [Python Validation Checks and Explanation of Results](#python-validation-check)
 15. [Fixed](#fixed)
+16. [Automated Testing](#automated-testing)
 16. [Manual Testing](#manual-testing)
 17. [Responsiveness](#responsiveness-testing)
 18. [Final Product](#final-product)
@@ -26,7 +27,7 @@
 20. [Business Goals and User Stories met](#business-goals-and-user-stories-met)
 21. [Deployment](#deployment)
 22. [Bug Fixes](#bug-fixes)
-23. [Project Constraints or Limitations](#project-constraints-or-limitations)
+23. [Future Developments](#future-developments)
 24. [References](#references)
 25. [Acknowledgements](#acknowledgements)
 26. [Thank You](#thank-you-for-reviewing-this-product)
@@ -111,11 +112,11 @@ Acceptance Criteria:
 
 1. Logical Data Model (ERD):
 
-    ![Logical Data Model](assets/images/erd-diagrams/logical-brushed-up-erd.png)
+    ![Logical Data Model](assets/images/erd-diagrams/logical-erd3.png)
 
 2. Physical Data Model (ERD):
 
-    ![Physical Data Model](assets/images/erd-diagrams/physical-brushed-up-erd.png)
+    ![Physical Data Model](assets/images/erd-diagrams/physical-erd3.png)
 
 ----------------------------------------------------------------
 
@@ -206,6 +207,25 @@ From the sripe CLI testing
 
 3. X (formerly known as Twitter):
    [X](https://www.twitter.com)
+
+------------------------------------------------------------------
+
+## Automated Testing
+ 
+To ensure the stability and reliability of the project's core logic, a few automated tests were implemented using Django's built-in testing framework (`TestCase`). 
+
+Specifically, three tests were written within `artwork/tests.py` to validate the **Contact Us** form submission and email:
+1. **`test_contact_page_renders_correctly`**: Verifies that the contact page successfully loads with a HTTP 200 status code and utilizes the correct template.
+2. **`test_valid_contact_form_submission`**: Mimics a user successfully submitting the form, checking that the view processes valid data and correctly redirects the user back to the contact page.
+3. **`test_invalid_contact_form_submission`**: Ensures that missing or invalid form data is prevented from being submitted and safely re-rendering the form with errors without crashing the application.
+
+#### Running the Tests
+The test suite can be executed locally using the following terminal command:
+in bash terminal 
+python3 manage.py test artwork
+
+Results below: 
+![Automated Test](assets/images/automated-tests/automated-testing-contact.png)
 
 ------------------------------------------------------------------
 
@@ -626,6 +646,12 @@ Create the application
 
 - The Fix: The brushed_up_things/settings.py file was updated to include an explicit redirect override. The LOGIN_REDIRECT_URL variable was added to the Allauth configuration block and set to target the named 'profile' route:
 LOGIN_REDIRECT_URL = '/'
+
+-----------------------------------------------------
+## Future Developments:
+
+### Dynamic Artist Directory & Portfolios
+In future development phases, the platform can be upgraded to feature interactive artist profile pages, allowing shoppers to click on an artist's profile to view their biography, portrait, and a dedicated gallery showcasing only their specific artwork. This will be achieved by introducing an **Artist Model** linked to the existing **Artwork Model** using a "One-to-Many" database relationship (`ForeignKey`), which ensures store administrators or staff can dynamically manage and add new artists through the admin dashboard or the staff portal at any time. Behind the scenes, a single Django database query will fetch the clicked artist's profile, and an automated Python loop inside the template will dynamically render their entire inventory collection in a clean grid without requiring any hardcoded changes.
 
 -----------------------------------------------------
 
