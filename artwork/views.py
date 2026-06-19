@@ -25,7 +25,7 @@ def about_view(request):
 
 def gallery(request):
     """This function is to display the art collections also with filters"""
-    artworks = Artwork.objects.all()
+    artworks = Artwork.objects.filter(is_sold=False)
     all_artists = Artist.objects.all().order_by('name')
 
     # Code to allow search bar and dropdown filters to work harmoniously
