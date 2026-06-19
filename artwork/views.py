@@ -155,19 +155,40 @@ def contact_view(request):
             customer_email = form.cleaned_data["email"]
             message_text = form.cleaned_data["message"]
 
-            subject = f"New Gallery Inquiry from {name}"
-            body = (
+            owner_subject = f"New Gallery Inquiry from {name}"
+            owner_body = (
                 f"You received a new message regarding Brushed Up Things:\n\n"
                 f"From: {name} ({customer_email})\n\n"
                 f"Message:\n{message_text}"
             )
-
-            # Defensive routing ensures email validation breaks are visible
             send_mail(
-                subject,
-                body,
+                owner_subject,
+                owner_body,
                 settings.EMAIL_HOST_USER,
                 [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+
+            # Confirmation email to the user
+            customer_subject = (
+                f"We've received your inquiry, {name}! "
+                f"- Brushed Up Things"
+            )
+            customer_body = (
+                f"Hi {name},\n\n"
+                f"Thank you for contacting Brushed Up Things! "
+                f"We have successfully received your message "
+                f"and our team will get back to you as soon "
+                f"as possible.\n\n"
+                f"Your Message:\n\"{message_text}\"\n\n"
+                f"Warm regards,\n"
+                f"The Brushed Up Things Team"
+            )
+            send_mail(
+                customer_subject,
+                customer_body,
+                settings.EMAIL_HOST_USER,
+                [customer_email],
                 fail_silently=False,
             )
 
