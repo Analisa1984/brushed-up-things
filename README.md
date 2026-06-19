@@ -210,6 +210,53 @@ From the sripe CLI testing
 
 ------------------------------------------------------------------
 
+## Lighthouse Accessibility Checks:
+![LightHouse Accessibility Checks](assets/images/validation-checks/accessablity.png)
+
+------------------------------------------------------------------
+
+## HTML Validation Checks:
+
+1. Homepage
+![Homepage](assets/images/validation-checks/validation-homepage.png)
+
+2. About Us Page
+![About Us Page](assets/images/validation-checks/validation-about.png)
+
+3. Gallery Page
+![Gallery Page](assets/images/validation-checks/validation-gallery.png)
+
+4. Contact Us Page
+![Contact Us Page](assets/images/validation-checks/validation-contact.png)
+
+5. Sign Up Page
+![SignUp Page](assets/images/validation-checks/validation-signup.png)
+
+6. Log In  Page
+![Login Page](assets/images/validation-checks/validation-login.png)
+
+7. Shopping Cart Page
+![Shopping Cart Page](assets/images/validation-checks/validation-shoppingcart.png)
+
+8. Checkout Page
+![Checkout page](assets/images/validation-checks/validation-checkout.png)
+
+9. Successful Checkout Page
+![Successful Checkout Page](assets/images/validation-checks/validation-checkout-success.png)
+
+10. Profile Page
+![Profile page](assets/images/validation-checks/validation-profile.png)
+
+11. Staff Portal Page
+![Staff Portal Page](assets/images/validation-checks/validation-staffportal.png)
+
+12. Staff Edit page
+![Staff Edit Page](assets/images/validation-checks/validation-editprofile.png)
+
+
+
+------------------------------------------------------------------
+
 ## Automated Testing
  
 To ensure the stability and reliability of the project's core logic, a few automated tests were implemented using Django's built-in testing framework (`TestCase`). 
