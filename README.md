@@ -1037,19 +1037,26 @@ In future development phases, the platform can be upgraded to feature interactiv
 
  - The Django Messages Framework: Reference for storing system feedback and executing template looping logic to render temporary success notifications or validation errors cleanly on the front end.
    [Django Documentation - The Messages Framework](https://docs.djangoproject.com/en/5.3/ref/contrib/messages/)
-### Database Querying & Filtering References
 
-#### 1. Handling HTTP GET Request Parameters
-* **The HttpRequest Object (`request.GET`):** Reference for using dictionary-like query dicts to fetch user parameters (the text value assigned to `'q'`) directly from the browser's incoming URL address bar.
-  * [Django Documentation - HttpRequest.GET QueryDicts](https://docs.djangoproject.com/en/5.3/ref/request-response/#django.http.HttpRequest.GET)
-
-#### 2. Advanced Multi-Field Database Filtering
-* **Complex Lookups with `Q` Objects:** Guidance on using `Q` objects to escape single-field limits. This architecture allows developers to combine database queries using logical OR operators (`|`) so a single search string can audit titles, descriptions, and mediums simultaneously.
+13. Database Querying & Filtering
+- **The HttpRequest Object (`request.GET`):** Reference for extracting parameters (such as search queries) from the browser's URL using dictionary-like QueryDict items.
+  * [Django Documentation - HttpRequest.GET](https://docs.djangoproject.com/en/5.3/ref/request-response/#django.http.HttpRequest.GET)
+- **Complex Lookups with `Q` Objects:** Guidance on constructing multi-field lookups with logical OR operators (`|`) to evaluate several database fields simultaneously.
   * [Django Documentation - Complex Lookups with Q Objects](https://docs.djangoproject.com/en/5.3/topics/db/queries/#complex-lookups-with-q-objects)
-
-#### 3. Database Text Matching Constraints
-* **Case-Insensitive Containment Lookups (`__icontains`):** Reference detailing field lookup modifiers used to evaluate whether a text string exists anywhere within a database record field while ignoring uppercase/lowercase differences.
+- **Case-Insensitive Containment (`__icontains`):** Reference detailing lookup modifiers that evaluate whether a text substring exists within a database field while ignoring uppercase or lowercase differences.
   * [Django Documentation - Field Lookups: icontains](https://docs.djangoproject.com/en/5.3/ref/models/querysets/#icontains)
+
+14. Django-Allauth Documentation: Django-allauth Configuration and Basics - offical setup guide utilized to configure authentication backend parameters, template overrides and email verification. 
+
+15. Cross-Origin Resource Sharing (CORS) and Security: Django COr`S headers Documentation - used to configure trusted cross-origin interaction parameters and allow secure e-commerce environemnt to receive web payloads safely. 
+
+16. Heroku - Python deployment and configurations. 
+
+17. Gunicorn - interface beteen Heroku and Django
+
+18. Amazon S3 Storage Drivers (boto3 and djago-storages):
+ - Amazon web Services SDK for Python (Boto3)
+ - Django Custom Storage backends (used to root static assets and media uploads and direct it straight to a cloud storage bucket)
 
 ## Acknowledgements
 
