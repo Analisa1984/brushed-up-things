@@ -39,6 +39,8 @@ def checkout(request):
             for item_id, quantity in cart.items():
                 try:
                     artwork = Artwork.objects.get(id=item_id)
+                    artwork.is_sold = True
+                    artwork.save()
                     order_line_item = OrderLineItem(
                         order=order,
                         artwork=artwork,
