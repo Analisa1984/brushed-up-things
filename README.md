@@ -16,10 +16,9 @@
 10. [Media Used](#media-used)
 11. [LightHouse Accessibility Checks](#lighthouse-accessibility-checks)
 12. [HTML Validation Checks](#html-validation-checks)
-13. [CSS Validation Checks and Explanation of Results](#css-validation-checks)
+13. [CSS Validation Checks](#css-validation-checks)
 14. [Python Validation Checks and Explanation of Results](#python-validation-check)
-15. [Fixed](#fixed)
-16. [Automated Testing](#automated-testing)
+15. [Automated Testing](#automated-testing)
 16. [Manual Testing](#manual-testing)
 17. [Responsiveness](#responsiveness-testing)
 18. [Final Product](#final-product)
@@ -174,6 +173,34 @@ From the sripe CLI testing
 
 ---------------------------------------------------------------
 
+## Agile Methodology Followed
+
+This project was developed using Agile practices. Breaking the work down into smaller tasks made it easier to manage the project development.
+
+### 1. Project Management Tool
+GitHub Projects was used to keep track of tasks. The board was divided into columns to follow the progress of the work:
+* To Do: Tasks and user stories that needed to be started.
+* In Progress: Features currently being coded and worked on.
+* Done: Fully completed, tested, and working features deployed to the live website.
+
+### 2. Development Phases
+The project was built in phases to focus on one main area of the application at a time:
+
+* Initial Setup: Creating the Git repository, setting up the basic Django project layout, and connecting the AWS database.
+* Product Catalog: Creating the artwork and artist database models, and building the gallery grid with its sidebar filters.
+* Accounts and Security: Adding Django Allauth for user registration and login, and setting up the profile page to show a user's past orders.
+* Shopping Cart and Payments(Checkout): Creating the shopping cart logic, building the checkout forms, and connecting Stripe and webhooks to securely process payments and mark items as sold.
+* Testing and Final Tweaks: Running automated and manual tests, validating the HTML, CSS, and Python code, checking accessibility with Lighthouse, and fixing any remaining warnings.
+
+### 3. Task Prioritization
+Every task on the project board was prioritized using the MoSCoW method to make sure the most important features were built first:
+* Must Have: Basic required features like the product catalog, database connections, and the secure payment process.
+* Should Have: Helpful features that improve the website, such as user profiles showing a history of past purchases.
+* Could Have: Smaller optional features that add convenience but are not required for the shop to function, like the empty cart button.
+* Wont Have: Features that are convenient but due to time constrainsts are not practical to add without compromising the basic features. 
+
+-------------------------------------------------------------------------------------------
+
 ## Languages and Technologies used:
 
 1. HTML
@@ -192,6 +219,15 @@ From the sripe CLI testing
 14. Amazon Web Services for the AWS database - Postgres
 15. Figma software was used to create the wireframes.
 16. draw.io for Entity Relationship Diagrams (ERD).
+17. Atripe API/ Stripe Python SDK - to handle payment processing, secure authorization loops and backend webhook confirmations. 
+18. Gunicorn - The WSGI HTTP server used to run python application in production in heroku. 
+19. AWS (Amazon Web Services) S3 - for static media storage and PostgreSQL database (a RDS database).
+20. Heroku - The cloud platform used to host and deploy the live web application. 
+21. GitHub - to store the code repository. 
+22. Django Allauth - The specialized library used to manage user registration, authentication, login forms and email validations. 
+23. psycopg2 - the PostgreSQL database adapter for Python that allows Django to communicate with the AWS database.
+24. dj-database-url - this library was used to parse the database URL environment vaiable in settings.py
+25. Flake8 - This was the python linter I used to verify PEP 8 style guidelines. 
 
 ----------------------------------------------------------------
 
@@ -253,9 +289,17 @@ From the sripe CLI testing
 12. Staff Edit page
 ![Staff Edit Page](assets/images/validation-checks/validation-editprofile.png)
 
-
-
 ------------------------------------------------------------------
+ 
+## CSS Validation Checks:
+![CSS Validation Checks](assets/images/validation-checks/validation-css.png)
+
+## Python Validation Check
+
+All Python code was checked via the Flake8 and had zero problems. 
+![Python Validation Check](assets/images/validation-checks/python-validation-check.png)
+
+One test did fail flake8, namely `profiles/apps.py`. The reason this failed is Django requires the import inside the ready method so the application registers the signal recievers when it loads. Therefore removing the import was not an option and to quell the concerns of flake8 `# noqa: F401` was used.
 
 ## Automated Testing
  
@@ -277,6 +321,10 @@ Results below:
 ------------------------------------------------------------------
 
 ## Manual Testing
+
+Manual testing is the process whereby all components, including functions, of a page are tested by manually going through each aspect of a page or software. This is done by also checking against the user stories to check if the program / software complies. Manual testing is deployed if chosen as the only means to check the application or software created (functions and all other implementations). However, manual testing can be done after automated testing is completed. Many software is tested both by manual testing and automated testing. Automated testing tests the functions created. Automated testing does not test the user experience as this is usually subjective. In Brushed Up things, manual testing was done to check the user experience and to test parts of the application that did not have automated tests. In most programs or software development, a combination of both manual and automated testing is done.
+
+Manual testing - The various parts of the website were checked such as the navigation bar, links, buttons. The various parts were also manually tested on mobile and tablet sizes using inspect and responsiveness checks on the page.
 
 NOTE: 
 Each part: 
@@ -601,6 +649,118 @@ From the staff portal click add artwork
 | Smaller Devices | box remains the same or similar size the boarders aroud the box shrink to fit. |
 
 ------------------------------------------------------------------------------------------
+
+## Final Product 
+
+### Larger Screen View (tablets, Laptops, PC views:)
+
+Home page View: 
+![Homepage](assets/images/final-product/home-page.png)
+
+About Us View: 
+![About Us](assets/images/final-product/about.png)
+
+Menu View: 
+![Menu](assets/images/final-product/menu.png)
+
+Log In View:
+![Log In](assets/images/final-product/login.png)
+
+Header View:
+![Header](assets/images/final-product/header.png)
+
+Book now View:
+![Book Now](assets/images/final-product/book-now.png)
+
+My Bookings View seen by Guests:
+![Guests My Bookings Page](assets/images/final-product/my-bookings.png)
+
+Booked Confirmation on screen for Guests:
+![Booked view for guests](assets/images/final-product/booked.png)
+
+Guests View of Update Bookings 
+![Update Booking](assets/images/final-product/update-booking.png)
+
+Staff Portal View (where they can register a user, book a table for any user, update bookings or delete bookings)
+![Staff Portal](assets/images/final-product/staff-portal.png)
+
+Staff view to register a new guest to dine
+![Staff Register Guest](assets/images/final-product/staff-register-book.png)
+
+Staff view to book a guest in at the pizzeria
+![Staff Book a guest](assets/images/final-product/staff-manual-booking.png)
+
+View of all reservations seen by staff or admin only
+![View all Booking for Staff or Admin](assets/images/final-product/staff-view-all-bookings.png)
+
+Footer view
+![Footer](assets/images/final-product/footer.png)
+
+
+### Mobile Screen Views
+
+Home Page Mobile View
+![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-1.png)
+
+![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-2.png)
+
+![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-3.png)
+
+![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-4.png)
+
+About Us Mobile View
+![About Us Page Mobile](assets/images/final-product/final-product-mobile/mobile-about-us-1.png)
+
+![About Us Page Mobile](assets/images/final-product/final-product-mobile/mobile-about-us-2.png)
+
+![About Us Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-3.png)
+
+--------------------------------
+Menu Page Mobile View
+![Menu Page Mobile](assets/images/final-product/final-product-mobile/mobile-menu-1.png)
+
+![Menu Page Mobile](assets/images/final-product/final-product-mobile/mobile-menu-2.png)
+
+-------------------------------
+
+Sign Up Mobile View
+![Sign Up Page Mobile](assets/images/final-product/final-product-mobile/mobile-sign-up-1.png)
+
+![Sign Up Page Mobile](assets/images/final-product/final-product-mobile/mobile-sign-up-2.png)
+
+--------------------------------
+
+Log In View in Mobile
+![Log In Page Mobile](assets/images/final-product/final-product-mobile/mobile-login.png)
+
+---------------------------------
+
+Book Now View in Mobile
+![Book Now Page Mobile](assets/images/final-product/final-product-mobile/mobile-book-now.png)
+
+-----------------------------------
+
+Staff Portal View in Mobiles
+![Staff Portal Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-portal-1.png)
+
+![Staff Portal Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-portal-2.png)
+
+----------------------------------
+
+Staff Register Guests View in Mobiles
+![Staff Register Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-register-and-book-1.png)
+
+![Staff Register Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-register-and-book-2.png)
+
+----------------------------------
+
+Master Reservations List in Mobile View seen by Staff and Admin Only:
+![Master Reservations List Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-view-all-left-1.png)
+
+![Master Reservations List Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-view-all-left-2.png)
+
+-----------------------------------
+
 
 ## Deployment
 
