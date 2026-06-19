@@ -4,7 +4,7 @@
 
 1. [About](#about)
 2. [Business Goals](#business-goals)
-3. [User Stories & Acceptance Criteria ](#user-stories-and-acceptance-criteria)
+3. [User Stories and Acceptance Criteria ](#user-stories-and-acceptance-criteria)
 4. [Wireframes](#wireframes)
 5. [Entity Relationship Diagrams](#entity-relationship-diagrams)
 5. [Core E-Commerce, Checkout and Email Architechture](#core-e-commerce-checkout-and-email-architechture)
@@ -40,7 +40,7 @@ Brushed Up Things! - This is a catolog showcasing artworks by our independent ar
 3. Deliver a browsing experience whereby once an item is sold the item is updated as sold once the item is purchased online. 
 4. Create an online awareness of the store by using Search Engine Optimizations. 
 
-## User Stories & Acceptance Criteria:
+## User Stories and Acceptance Criteria:
 
 1. Viewing the Artwork Catalog
 
@@ -81,6 +81,68 @@ User Story: As a gallery manager, I can add, update, delete items from the galle
 Acceptance Criteria: 
 - Only authenticated staff such as the gallery manager, can change gallery inventory (such as add, update, delete) on the website. 
 - A Form should be available that allows the authenticated staff/manager to perform the processes above. 
+
+6. Automated Email notifcations:
+
+As a registered customer I can receive an itemized email receipt immediately after a successful checkout transaction so that I have a permanent digital record of my gallery purchase.
+
+Acceptance Criteria
+- Successful checkout triggers a background view method that compiles and executes an asynchronous transactional email confirmation.
+- Sent emails pull structured content from isolated subject and body templates containing unique tracking numbers and item metrics.
+
+7. Advanced Media Catalog Filtering
+
+As a gallery explorer I can sort and filter artworks by specific mediums or individual artists so that I can quickly find pieces that fit my explicit stylistic interests.
+
+Acceptance Criteria
+- A responsive sidebar menu filters the live gallery view grid based on relational queries like Oil and Canvas or Sculptures.
+- Text search functionality queries title and artist strings to return accurate matches.
+
+8. Automated Transactional Webhooks
+
+As a system administrator I can rely on a server-side webhook listener to handle payment events asynchronously so that orders are safely created even if a user closes their browser mid-transaction.
+
+Acceptance Criteria
+- A dedicated server endpoint handles incoming payment_intent.succeeded payloads.
+- The system cryptographically validates the webhook signature and fallback-creates the database order if a session drop occurred.
+
+9. Secure E-Commerce Checkout
+
+As a registered customer I can submit my credit card details securely through an integrated payment form so that I can confidently complete my artwork order online.
+
+Acceptance Criteria
+- Checkout page integrates the official Stripe API and Elements script SDK to capture payments securely.
+- Frontend JavaScript disables the checkout button immediately upon form submission to prevent duplicate card charges.
+
+10. Store Management Inventory Controls
+
+As a gallery manager I can add, update, and delete artworks and artists directly on the frontend UI so that I do not need to access the database admin backend to keep our inventory current.
+
+Acceptance Criteria
+- Frontend CRUD forms are restricted exclusively to authorized staff user accounts.
+- Form submissions successfully write additions, edits, or deletes to the live data store.
+
+11. Managing Shipping Costs
+As a gallery director I can update delivery fee percentages or free-delivery limits from a central configuration row so that I can adjust shop rules without rewriting codebase parameters.
+
+Acceptance Criteria
+- Financial calculations reference variables isolated within a single StoreConfiguration database entry row.
+- Editing the threshold row in the administration hub updates server-side transaction math rules immediately.
+
+12. Instant Updates on Sold Art Pieces
+As a site owner and buyer I can see an art piece automatically update to "Sold" once bought so that it is instantly marked as unavailable for anyone else to buy.
+
+Acceptance Criteria
+- A successful payment processing lifecycle automatically sets the database flag of the artwork to "Sold".
+- The gallery view displays a prominent visual "Sold" badge over the piece and disables its purchase interface.
+
+13. Interactive Artist Profiles
+As a gallery explorer I can click on an artist's profile to view their biography and a dedicated grid of their specific artwork so that I can learn more about my favourite creators and browse their entire collection in one place.
+
+Acceptance Criteria
+- The platform implements a dedicated Artist Model linked to the Artwork Model via a One-to-Many ForeignKey relationship.
+- Clicking an artist's name fetches their biographical details and runs a single database query to retrieve their inventory.
+- A dynamic loop renders the artist's specific collection automatically without any hardcoded frontend page updates.
 
 ## Wireframes:
 
@@ -655,112 +717,115 @@ From the staff portal click add artwork
 ### Larger Screen View (tablets, Laptops, PC views:)
 
 Home page View: 
-![Homepage](assets/images/final-product/home-page.png)
+![Homepage](assets/images/final-product/desktop/desktop-index.png)
 
 About Us View: 
-![About Us](assets/images/final-product/about.png)
+![About Us](assets/images/final-product/desktop/desktop-aboutus.png)
 
-Menu View: 
-![Menu](assets/images/final-product/menu.png)
+Gallery: 
+![Gallery](assets/images/final-product/desktop/desktop-gallery.png)
+
+Medium
+![Medium](assets/images/final-product/desktop/desktop-medium.png)
 
 Log In View:
-![Log In](assets/images/final-product/login.png)
+![Log In](assets/images/final-product/desktop/desktop-login.png)
 
 Header View:
-![Header](assets/images/final-product/header.png)
+![Header](assets/images/final-product/desktop/desktop-header.png)
 
-Book now View:
-![Book Now](assets/images/final-product/book-now.png)
+Footer View:
+![Footer](assets/images/final-product/desktop/desktop-footer.png)
 
-My Bookings View seen by Guests:
-![Guests My Bookings Page](assets/images/final-product/my-bookings.png)
+Order: 
+![order](assets/images/final-product/desktop/desktop-order.png)
 
-Booked Confirmation on screen for Guests:
-![Booked view for guests](assets/images/final-product/booked.png)
+Payment Confirmation:
+![Payment Confirmation](assets/images/final-product/desktop/desktop-order-confirmation.png)
 
-Guests View of Update Bookings 
-![Update Booking](assets/images/final-product/update-booking.png)
+Contact Us Page:
+![Contact Us Page](assets/images/final-product/desktop/desktop-contact.png)
 
-Staff Portal View (where they can register a user, book a table for any user, update bookings or delete bookings)
-![Staff Portal](assets/images/final-product/staff-portal.png)
+SignUp Page:
+![Sign Up Page](assets/images/final-product/desktop/desktop-signup.png)
 
-Staff view to register a new guest to dine
-![Staff Register Guest](assets/images/final-product/staff-register-book.png)
+Staff Portal Page 
+![Staff Portal Page](assets/images/final-product/desktop/desktop-staff-portal-dashboard.png)
 
-Staff view to book a guest in at the pizzeria
-![Staff Book a guest](assets/images/final-product/staff-manual-booking.png)
+Staff Portal Edit Artwork Page 
+![Staff Portal Edit Page](assets/images/final-product/desktop/desktop-staff-edit-artwork.png)
 
-View of all reservations seen by staff or admin only
-![View all Booking for Staff or Admin](assets/images/final-product/staff-view-all-bookings.png)
+Staff Portal Edit Artist Page 
+![Staff Portal Edit Page](assets/images/final-product/desktop/desktop-staff-edit-artist.png)
+
+Staff Add an Artist Page
+![Staff Add an Artist Page](assets/images/final-product/desktop/desktop-staff-add-artist.png)
+
+Staff Add Artwork Page
+![Staff Add Artwork Page](assets/images/final-product/desktop/desktop-staff-add-artwork.png)
+
+Staff delete page
+![Staff delete page](assets/images/final-product/desktop/desktop-staff-delete-artwork.png)
 
 Footer view
-![Footer](assets/images/final-product/footer.png)
+![Footer](assets/images/final-product/desktop/desktop-footer.png)
 
 
-### Mobile Screen Views
+## Mobile Screen Views:
 
-Home Page Mobile View
-![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-1.png)
+Home page View: 
+![Homepage](assets/images/final-product/mobile/mobile-index.png)
 
-![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-2.png)
+About Us View: 
+![About Us](assets/images/final-product/mobile/mobile-aboutus.png)
 
-![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-3.png)
+Gallery: 
+![Gallery](assets/images/final-product/mobile/mobile-gallery.png)
 
-![Home Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-4.png)
+Medium
+![Medium](assets/images/final-product/mobile/mobile-medium.png)
 
-About Us Mobile View
-![About Us Page Mobile](assets/images/final-product/final-product-mobile/mobile-about-us-1.png)
+Log In View:
+![Log In](assets/images/final-product/mobile/mobile-login.png)
 
-![About Us Page Mobile](assets/images/final-product/final-product-mobile/mobile-about-us-2.png)
+Header View:
+![Header](assets/images/final-product/mobile/mobile-header.png)
 
-![About Us Page Mobile](assets/images/final-product/final-product-mobile/mobile-home-page-3.png)
+Footer View:
+![Footer](assets/images/final-product/mobile/mobile-footer.png)
 
---------------------------------
-Menu Page Mobile View
-![Menu Page Mobile](assets/images/final-product/final-product-mobile/mobile-menu-1.png)
+Order: 
+![order](assets/images/final-product/mobile/mobile-order.png)
 
-![Menu Page Mobile](assets/images/final-product/final-product-mobile/mobile-menu-2.png)
+Payment Confirmation:
+![Payment Confirmation](assets/images/final-product/mobile/mobile-order-confirmation.png)
 
--------------------------------
+Contact Us Page:
+![Contact Us Page](assets/images/final-product/mobile/mobile-contact.png)
 
-Sign Up Mobile View
-![Sign Up Page Mobile](assets/images/final-product/final-product-mobile/mobile-sign-up-1.png)
+SignUp Page:
+![Sign Up Page](assets/images/final-product/mobile/mobile-signup.png)
 
-![Sign Up Page Mobile](assets/images/final-product/final-product-mobile/mobile-sign-up-2.png)
+Staff Portal Page 
+![Staff Portal Page](assets/images/final-product/mobile/mobile-staff-portal-dashboard.png)
 
---------------------------------
+Staff Portal Edit Artwork Page 
+![Staff Portal Edit Page](assets/images/final-product/mobile/mobile-staff-edit-artwork.png)
 
-Log In View in Mobile
-![Log In Page Mobile](assets/images/final-product/final-product-mobile/mobile-login.png)
+Staff Portal Edit Artist Page 
+![Staff Portal Edit Page](assets/images/final-product/mobile/mobile-staff-edit-artist.png)
 
----------------------------------
+Staff Add an Artist Page
+![Staff Add an Artist Page](assets/images/final-product/mobile/mobile-staff-add-artist.png)
 
-Book Now View in Mobile
-![Book Now Page Mobile](assets/images/final-product/final-product-mobile/mobile-book-now.png)
+Staff Add Artwork Page
+![Staff Add Artwork Page](assets/images/final-product/mobile/mobile-staff-add-artwork.png)
 
------------------------------------
+Staff delete page
+![Staff delete page](assets/images/final-product/mobile/mobile-staff-delete-artwork.png)
 
-Staff Portal View in Mobiles
-![Staff Portal Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-portal-1.png)
 
-![Staff Portal Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-portal-2.png)
-
-----------------------------------
-
-Staff Register Guests View in Mobiles
-![Staff Register Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-register-and-book-1.png)
-
-![Staff Register Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-register-and-book-2.png)
-
-----------------------------------
-
-Master Reservations List in Mobile View seen by Staff and Admin Only:
-![Master Reservations List Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-view-all-left-1.png)
-
-![Master Reservations List Page Mobile](assets/images/final-product/final-product-mobile/mobile-staff-view-all-left-2.png)
-
------------------------------------
-
+--------------------------------------------------------------------------------
 
 ## Deployment
 
