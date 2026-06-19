@@ -7,29 +7,28 @@
 3. [User Stories and Acceptance Criteria ](#user-stories-and-acceptance-criteria)
 4. [Wireframes](#wireframes)
 5. [Entity Relationship Diagrams](#entity-relationship-diagrams)
-5. [Core E-Commerce, Checkout and Email Architechture](#core-e-commerce-checkout-and-email-architechture)
-6. [Stripe Webhook Integration and Backend Architecture](#stripe-webhook-integration-and-backend-architecture)
-6. [Design and How to use the website](#design-and-how-to-use-the-website)
-7. [Agile Methodology Followed](#agile-methodology-followed)
-8. [Languages and Technologies used](#languages-and-technologies-used)
-9. [Links Used](#links-used)
-10. [Media Used](#media-used)
-11. [LightHouse Accessibility Checks](#lighthouse-accessibility-checks)
-12. [HTML Validation Checks](#html-validation-checks)
-13. [CSS Validation Checks](#css-validation-checks)
-14. [Python Validation Checks and Explanation of Results](#python-validation-check)
-15. [Automated Testing](#automated-testing)
-16. [Manual Testing](#manual-testing)
-17. [Responsiveness](#responsiveness-testing)
-18. [Final Product](#final-product)
-19. [Mobile Screen Views](#mobile-screen-views)
-20. [Business Goals and User Stories met](#business-goals-and-user-stories-met)
-21. [Deployment](#deployment)
-22. [Bug Fixes](#bug-fixes)
-23. [Future Developments](#future-developments)
-24. [References](#references)
-25. [Acknowledgements](#acknowledgements)
-26. [Thank You](#thank-you-for-reviewing-this-product)
+6. [Core E-Commerce Checkout and Email Architecture](#core-e-commerce-checkout-and-email-architecture)
+7. [Stripe Webhook Integration and Backend Architecture](#stripe-webhook-integration-and-backend-architecture)
+8. [Design and How to use the website](#design-and-how-to-use-website)
+9. [Agile Methodology Followed](#agile-methodology-followed)
+10. [Languages and Technologies used](#languages-and-technologies-used)
+11. [Links Used](#links-used)
+12. [LightHouse Accessibility Checks](#lighthouse-accessibility-checks)
+13. [HTML Validation Checks](#html-validation-checks)
+14. [CSS Validation Checks](#css-validation-checks)
+15. [Python Validation Checks and Explanation of Results](#python-validation-check)
+16. [Automated Testing](#automated-testing)
+17. [Manual Testing](#manual-testing)
+18. [Responsiveness](#responsiveness-testing)
+19. [Final Product](#final-product)
+20. [Mobile Screen Views](#mobile-screen-views)
+21. [Business Goals and User Stories met](#business-goals-and-user-stories-met)
+22. [Deployment](#deployment)
+23. [Bug Fixes](#bug-fixes)
+24. [Future Developments](#future-developments)
+25. [References](#references)
+26. [Acknowledgements](#acknowledgements)
+27. [Thank You](#thank-you-for-reviewing-this-product)
 
 ## About
 Brushed Up Things! - This is a catolog showcasing artworks by our independent artists.  Art collectors and enthusiasts can review the items of our gallery and make purchases. Making purchases, involves the user first registering and creating an account then loggin in to make a purchase. 
@@ -181,7 +180,7 @@ Acceptance Criteria
 
 ----------------------------------------------------------------
 
-## Core E-Commerce, Checkout & Email Architecture
+## Core E-Commerce Checkout and Email Architecture
 
 ### 1. Design Rationale & User Control
 The checkout infrastructure for "Brushed Up Things" is engineered to provide an elegant, secure, and transparent purchasing experience for art collectors. Every phase of the transaction pipeline prioritizes immediate user feedback and defensive application design:
@@ -234,6 +233,17 @@ From the sripe CLI testing
   ![Stripe CLI Test](assets/images/webhook-images/webhook.png)
 
 ---------------------------------------------------------------
+
+## Design and How to use Website:
+This website is a fictional website created for academic purposes on demonstration in implementing HTML, CSS, JavaScript, Python, Django frameworks and Bootstrap. Brushed Up Things is an online art gallery. This website is online only and operates in such a way whereby, a customer can browse the gallery and add art pieces to the shopping cart. If the customer wishes to make the purchase, he/she must first go to the checkout page where the person will then be prompted to either log in (if they are already registered) or to first register (sign up). Once the person is then logged in they can then click on secure checkout button which will then take them to stripe secure payment area. Once an item is purchased, the status of that item changes from available to sold and sold items are no longer displayed on the gallery. Each art piece is unique and only one exists. If a person has put the art piece in their shopping_cart but not yet purchased it then someone else buys it, then that item is no longer available to buy even if it is in another person's shopping trolley. What then happens, is the secure checkout button becomes grayed out and that item is not available to purchase, the [person ] must remove the item before continuing to checkout.
+
+Email: Customers who sign up for an account will receive an email to corfirm their account (this is desgined from allauth). When customers contact us, the email with their original message is sent to them saying the team will get in touch and the team at the Brushed Up Things also receive the email. When an order is placed an email is also received by the customer with a receipt of their purchase. 
+
+The form will already be pre-filled with the details they mentioned in their address area they filled out as the shipping address. 
+
+Customers can update their profile information and delete their accounts. 
+
+Apart from the customers, the staff can make additions in the staff portal to artwork pieces to be added to the gallery. The Staff can also add artists. Also, staff can make additions and deletions of artists and or art pieces displayed on the gallery. 
 
 ## Agile Methodology Followed
 
@@ -1040,3 +1050,13 @@ In future development phases, the platform can be upgraded to feature interactiv
 #### 3. Database Text Matching Constraints
 * **Case-Insensitive Containment Lookups (`__icontains`):** Reference detailing field lookup modifiers used to evaluate whether a text string exists anywhere within a database record field while ignoring uppercase/lowercase differences.
   * [Django Documentation - Field Lookups: icontains](https://docs.djangoproject.com/en/5.3/ref/models/querysets/#icontains)
+
+## Acknowledgements
+
+   1. I thank God Almighty.
+   2. Code Institute and all staff for all lectures and learning materials provided throughout the course thus far.
+   3. Bootstrap 5 doc in learning how to add classes and other elements.
+   4. Unsplash for use of all royalty free images on the design of this webpage.
+   5. Figma software for free usage to create wireframes.
+
+## Thank You for reviewing this product
