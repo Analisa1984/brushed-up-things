@@ -42,7 +42,7 @@ Brushed Up Things! - This is a catolog showcasing artworks by our independent ar
 
 ## User Stories and Acceptance Criteria:
 
-1. Viewing the Artwork Catalog
+1. Viewing the Artwork Catalog (Gallery)
 
 User Story: As a user, I can view the varioua artwork with descriptions, prices so that I can decide if I would like to purchase any artwork. 
 
@@ -98,13 +98,13 @@ Acceptance Criteria
 - A responsive sidebar menu filters the live gallery view grid based on relational queries like Oil and Canvas or Sculptures.
 - Text search functionality queries title and artist strings to return accurate matches.
 
-8. Automated Transactional Webhooks
+8. Automated Order Recovery
 
-As a system administrator I can rely on a server-side webhook listener to handle payment events asynchronously so that orders are safely created even if a user closes their browser mid-transaction.
+As a system administrator I can use a webhook listener to process payments in the background so that orders are still saved even if a user closes their browser before the success page loads.
 
 Acceptance Criteria
-- A dedicated server endpoint handles incoming payment_intent.succeeded payloads.
-- The system cryptographically validates the webhook signature and fallback-creates the database order if a session drop occurred.
+- A secure endpoint listens for Stripe payment notifications automatically.
+- The system builds and saves the customer's order to the database even if the checkout window was closed early.
 
 9. Secure E-Commerce Checkout
 
@@ -836,6 +836,44 @@ Staff Add Artwork Page
 Staff delete page
 ![Staff delete page](assets/images/final-product/mobile/mobile-staff-delete-artwork.png)
 
+
+--------------------------------------------------------------------------------
+
+## Business Goals and User Stories met:
+
+User Story # 1: Viewing the Artwork Catalog (Gallery)
+![Gallery](assets/images/goals-met/1-gallery.png)
+
+User Story # 2: Account Registration for Purchasing
+![Sign Up](assets/images/goals-met/2-signup.png)
+
+User Story # 3: Instant Updates on Sold Art Pieces
+![Instant Updates on Sold Art Pieces](assets/images/goals-met/3-automated-checkout-update.png)
+
+User Story # 4: Managing Past Orders (Profile Page)
+![Managing Past Orders](assets/images/goals-met/4-order-history.png)
+
+User Story # 5: Store Management
+![Store Management](assets/images/goals-met/5-staff-portal-manage-artist-and-product.png)
+
+User Story # 6: Automated Email Notifications
+![Automated Email Notifications](assets/images/goals-met/6-success-email.png)
+
+User Story # 7: Advanced media Catalog Filtering
+![Advanced media Catalog Fil;tering](assets/images/goals-met/7-content-filtering.png)
+
+User Story # 8:
+From the sripe CLI testing
+  ![Stripe CLI Test](assets/images/webhook-images/webhook.png)
+
+User Story # 9: Secure E-Commerce Checkout
+![Secure E-Commerce Checkout](assets/images/goals-met/9-card-details-checkout.png)
+
+User Story # 10: Store Management Inventory Controls
+![Store management Inventory Controls ](assets/images/goals-met/10-edit-delete-artworks.png)
+
+User Story # 11: Managing Shipping Costs
+![Managing Shipping Costs](assets/images/goals-met/11-update-shipping-costs.png)
 
 --------------------------------------------------------------------------------
 
