@@ -979,6 +979,14 @@ Create the application
 - The Fix: The brushed_up_things/settings.py file was updated to include an explicit redirect override. The LOGIN_REDIRECT_URL variable was added to the Allauth configuration block and set to target the named 'profile' route:
 LOGIN_REDIRECT_URL = '/'
 
+4. Gallery Search Disconnect (Artist Query Defect) - Outstanding issue that is not fixed
+
+- **The Issue:** Entering an artist's name into the search bar component fails to return matching gallery results, even when the artist's profile exists inside the database. The query returns an empty results page or generic product matches instead of filtering specifically by the requested artist.
+
+- **The Root Cause:** The current text-matching search view logic utilizes a Django `Q` object that explicitly audits the `title`, `description`, and `medium` fields of the `Artwork` model using `__icontains`.
+
+- **The Proposed Fix / Workaround:** The database search lookup array needs to be upgraded to perform a span relationship join. By modifying the `Q` object parameters inside the search view. 
+
 -----------------------------------------------------
 ## Future Developments:
 
@@ -988,19 +996,26 @@ In future development phases, the platform can be upgraded to feature interactiv
 -----------------------------------------------------
 
 ## References: 
-1. Unsplash Royalty Free Images - Mayur Deshpande
-2. Unsplash Royalty Free Images - Europeana
-3. Unsplash Royalty Free Images - Vineet Pathak
-4. Unsplash Royalty Free Images - Europeana
-5. Unsplash Royalty Free Images - Faith Washere
-6. Unsplash Royalty Free Images - Boston Public Library
-7. Stripe Payments Integration
+1. Unsplash royalty free images - https://unsplash.com/photos/MamWbmmaylY/download?force=true - Ari He
+2. Unsplash royalty free images - https://unsplash.com/photos/VdWI7XhTINg/download?force=true - Dillon Warner
+3. Unsplash royalty free images - https://unsplash.com/photos/PfUH_AuFE_0/download?force=true - Avi Richards
+4. Unsplash royalty free images - https://unsplash.com/photos/NRBBze-P0Sc/download?force=true - Muhammad Rahim Ali
+5. Unsplash royalty free images - https://unsplash.com/photos/7_SFPZ4OoBY/download?force=true - Ali Gorzi
+6. Unsplash royalty free images - https://unsplash.com/photos/enKHGZ72Txw/download?force=true - Matthew Moloney
+7. Unsplash royalty free images - https://unsplash.com/photos/htYe42tVIVw/download?force=true -  Vitaly Gariev
+8. Unsplash royalty free images - https://unsplash.com/photos/67Pviandjok/download?force=true - Sohiel Kmp
+9. Unsplash royalty free images - https://unsplash.com/photos/QGbIxSgv1P0/download?force=true - Vicki Vicki
+10. Unsplash royalty free images - https://unsplash.com/photos/wzukkQD2AGQ/download?force=true - Yayan Sopian
+11. Unsplash royalty free images - https://unsplash.com/photos/8mqtNmWHA4c/download?force=true - Kinga Howard
+12. Unsplash royalty free images - https://unsplash.com/photos/5aftVjnUR4Q/download?force=true - Dawin Boaventura
+
+13. Stripe Payments Integration
 
    **Stripe Developer Documentation** – Utilized for the foundational JavaScript SDK architecture, including base Element initialization, secure UI iframe generation, and asynchronous payment lifecycle confirmation.  
    * *Source:* [Stripe Docs: Accept a Payment](https://stripe.com/docs/payments/accept-a-payment)
    * **Custom Django & jQuery Implementation** – Developed custom front-end logic to bridge the Django backend with the Stripe API. This includes using jQuery for dynamic DOM element selection, handling secure data-extraction and string sanitization via `.slice()`, and implementing defensive UI controls (disabling buttons and inputs) to prevent duplicate form submissions.
 
-8. Models & Database Layer
+14. Models & Database Layer
  - Django Models Baseline: Understanding fields, relationships, and options used to model the gallery artwork assets.
    [Django Documentation - Models](https://docs.djangoproject.com/en/5.3/topics/db/models/)
 
@@ -1010,14 +1025,14 @@ In future development phases, the platform can be upgraded to feature interactiv
  - Database Relationships: Guide on utilizing `ForeignKey` constraints with cascade rules (`on_delete=models.CASCADE` and `models.PROTECT`) to connect line items securely to parent transaction records.
   [Django Documentation - Many-to-one relationships](https://docs.djangoproject.com/en/5.3/topics/db/examples/many_to_one/)
 
-9. Views & Business Logic
+15. Views & Business Logic
  - Django View Layer Foundations: Structural design pattern for organizing HTTP request/response handling logic for processing checkouts and displaying details.
    [Django Documentation - Writing Views](https://docs.djangoproject.com/en/5.3/topics/http/views/)
 
  - URL Routing Configuration: Reference for constructing clean, consistent, cross-platform path structures linking named routes directly to views.
    [Django Documentation - URL dispatcher](https://docs.djangoproject.com/en/5.3/topics/http/urls/)
 
-10. Forms & Data Validation
+16. Forms & Data Validation
 
  - Django Forms Framework: Baseline architecture used to initialize, validate, and process frontend user inputs safely before committing data to storage.
    [Django Documentation - Working with Forms](https://docs.djangoproject.com/en/5.3/topics/forms/)
@@ -1025,7 +1040,7 @@ In future development phases, the platform can be upgraded to feature interactiv
  - ModelForms Customization:** Step-by-step guidance on constructing secure forms bound directly to database definitions to manage inventory adjustments.
    [Django Documentation - Creating forms from models](https://docs.djangoproject.com/en/5.3/topics/forms/modelforms/)
 
- 11. HTML Templates & Frontend Logic
+17. HTML Templates & Frontend Logic
 
  - The Django Template Language: Official documentation covering layout inheritances via `{% extends %}` and dynamic section injections via `{% block %}` structures.
    [Django Documentation - The Django Template Language](https://docs.djangoproject.com/en/5.3/topics/templates/)
@@ -1033,12 +1048,12 @@ In future development phases, the platform can be upgraded to feature interactiv
  - Built-in Template Tags and Filters: Usage reference for loop operations (`{% for %}`), control blocks (`{% if %}`), and static asset loading mechanics (`{% load static %}`).
    [Django Documentation - Built-in Template Tags Reference](https://docs.djangoproject.com/en/5.3/ref/templates/builtins/)
 
- 12. User Feedback & Session Messages
+18. User Feedback & Session Messages
 
  - The Django Messages Framework: Reference for storing system feedback and executing template looping logic to render temporary success notifications or validation errors cleanly on the front end.
    [Django Documentation - The Messages Framework](https://docs.djangoproject.com/en/5.3/ref/contrib/messages/)
 
-13. Database Querying & Filtering
+19. Database Querying & Filtering
 - **The HttpRequest Object (`request.GET`):** Reference for extracting parameters (such as search queries) from the browser's URL using dictionary-like QueryDict items.
   * [Django Documentation - HttpRequest.GET](https://docs.djangoproject.com/en/5.3/ref/request-response/#django.http.HttpRequest.GET)
 - **Complex Lookups with `Q` Objects:** Guidance on constructing multi-field lookups with logical OR operators (`|`) to evaluate several database fields simultaneously.
@@ -1046,15 +1061,15 @@ In future development phases, the platform can be upgraded to feature interactiv
 - **Case-Insensitive Containment (`__icontains`):** Reference detailing lookup modifiers that evaluate whether a text substring exists within a database field while ignoring uppercase or lowercase differences.
   * [Django Documentation - Field Lookups: icontains](https://docs.djangoproject.com/en/5.3/ref/models/querysets/#icontains)
 
-14. Django-Allauth Documentation: Django-allauth Configuration and Basics - offical setup guide utilized to configure authentication backend parameters, template overrides and email verification. 
+20. Django-Allauth Documentation: Django-allauth Configuration and Basics - offical setup guide utilized to configure authentication backend parameters, template overrides and email verification. 
 
-15. Cross-Origin Resource Sharing (CORS) and Security: Django COr`S headers Documentation - used to configure trusted cross-origin interaction parameters and allow secure e-commerce environemnt to receive web payloads safely. 
+21. Cross-Origin Resource Sharing (CORS) and Security: Django COr`S headers Documentation - used to configure trusted cross-origin interaction parameters and allow secure e-commerce environemnt to receive web payloads safely. 
 
-16. Heroku - Python deployment and configurations. 
+22. Heroku - Python deployment and configurations. 
 
-17. Gunicorn - interface beteen Heroku and Django
+23. Gunicorn - interface beteen Heroku and Django
 
-18. Amazon S3 Storage Drivers (boto3 and djago-storages):
+24. Amazon S3 Storage Drivers (boto3 and djago-storages):
  - Amazon web Services SDK for Python (Boto3)
  - Django Custom Storage backends (used to root static assets and media uploads and direct it straight to a cloud storage bucket)
 
